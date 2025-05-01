@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interface</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+
+
+background-image: url('/images/cbg1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container {
+            display: block;
+            background-color: #fff;
+            padding: 80px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #ccc;
+            max-width: 600px;
+            margin: auto;
+
+background-image: url('/images/cbg2.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container h2 {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+           .quiz-container .submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+
+                        font-size: 16px;
+            margin: 10px;
+
+        }
+.quiz-container .submit-btn {
+
+   background-color: transparent;
+            color: #9ABDDC;
+            border: 2px solid #9ABDDC;
+
+}
+
+        .quiz-container .submit-btn:hover {
+            background-color: #5F84A2; /* Fill color on hover */
+            color: white;
+
+        }
+        
+
+position:absolute;
+top:30%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+        }
+
+       
+ .start-quiz button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color:#7CC1D7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .start-quiz button:hover {
+            background-color:#4BAAC8;
+        }
+
+.buttonruhi{
+            
+padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+.buttonruhi{
+
+background-color: #00C087;
+            color: white;
+            border: none;
+
+}
+        .buttonruhi:hover {
+            background-color: #00A376; /* Slightly darker shade on hover */
+
+
+        }
+
+h5{
+            font-size: 1.4em;
+color: #bbbbbb;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ p {
+            font-size: 1.8em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ h1 {
+            font-size: 2.1em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Algerian, sans-serif;
+
+        }
+label{
+            font-size: 1.4em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+
+
+    
+<div class="quiz-container"
+style="display: block;">
+    
+    <center><h1>Interesting Fact!</center></h1>
+<center><h5>C is like the cool grandparent who taught all the other languages their first words in programming.</h5></center>
+
+    
+<div class="question1">
+        <p>1.Which of the following is the correct way to declare an integer variable in C?
+  </p>
+        <label>
+            <input type="radio" name="question1" value="int num;"> int num;
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="integer num;"> integer num;
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="num int;">num int;
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="int = num;"> int = num;
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer1()">submit</center></button>
+    <p id="result1"></p>
+
+
+
+
+<div class="question2">
+        <p>2.What is the purpose of the return statement in a C function?
+
+ </p>
+        <label>
+            <input type="radio" name="question2" value="To exit from the loop."> To exit from the loop.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="To return a value from the function."> To return a value from the function.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="To print a value to the console."> To print a value to the console.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="To declare a variable.">To declare a variable.
+        </label>
+    </div>
+  <center><button class="submit-btn" onclick="submitAnswer2()">submit</center></button>
+    <p id="result2"></p>
+
+
+
+
+<div class="question3">
+        <p>3.What is the default value of an uninitialized local variable in C?
+
+ </p>
+        <label>
+            <input type="radio" name="question3" value="0">0 </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="NULL"> NULL</label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="Undefined"> Undefined
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="1"> 1</label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer3()">submit</center></button>
+    <p id="result3"></p>
+
+
+
+
+<div class="question4">
+        <p>4.What does the & operator do in C?
+
+ </p>
+        <label>
+            <input type="radio" name="question4" value="It is used to get the address of a variable."> It is used to get the address of a variable.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="It performs a bitwise AND operation."> It performs a bitwise AND operation.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="It is used to declare a variable.">It is used to declare a variable.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="It is used to access the value of a pointer."> It is used to access the value of a pointer.
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer4()">submit</center></button>
+    <p id="result4"></p>
+
+
+<div class="question5">
+        <p>5.What is a dangling pointer in C?
+
+</p>
+        <label>
+            <input type="radio" name="question5" value="A pointer that has not been initialized."> A pointer that has not been initialized.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="A pointer that points to a memory location that has been freed."> A pointer that points to a memory location that has been freed.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="A pointer that is initialized to NULL."> A pointer that is initialized to NULL.
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="A pointer that points to another pointer."> A pointer that points to another pointer.
+
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer5()">submit</center></button>
+    <p id="result5"></p>
+
+
+
+
+
+<div class="question6">
+        <p>6.Which keyword is used to define a structure in C?
+</p>
+        <label>
+            <input type="radio" name="question6" value="struct">struct
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="class">class
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="union"> union
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value=" enum">  enum
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer6()">submit</center></button>
+    <p id="result6"></p>
+
+
+
+
+
+
+<div class="question7">
+        <p>7.What is the default value of a static variable in C?
+
+</p>
+        <label>
+            <input type="radio" name="question7" value="0"> 0
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="NULL"> NULL
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value=" Uninitialized">  Uninitialized
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="1"> 1
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer7()">submit</center></button>
+    <p id="result7"></p>
+
+
+
+
+
+
+<div class="question8">
+        <p>8.Which mode is used to open a file for reading and writing in binary mode?</p>
+        <label>
+            <input type="radio" name="question8" value="r"> "r"
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="w"> "w" </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="r+">    "r+"     </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value= "rb">   "rb"       </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer8()">submit</center></button>
+    <p id="result8"></p>
+
+
+
+<div class="question9">
+        <p>9.Which directive is used to include a header file in C?
+</p>
+        <label>
+            <input type="radio" name="question9" value="#include"> #include
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="#define">#define
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="#import">#import
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="#header">#header
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer9()">submit</center></button>
+    <p id="result9"></p>
+
+
+
+
+<div class="question10">
+        <p>10.Which operator is used to add two numbers in C?</p>
+        <label>
+            <input type="radio" name="question10" value="+">+
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="-"> -
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="*"> *
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="/"> /
+        </label>
+    </div>
+
+
+    <center><button class="submit-btn" onclick="submitAnswer10()">submit</center></button>
+<p id="result10"></p>
+
+<center><button class="buttonruhi" onclick="calculateScore()">Overall Score<center></button>
+
+
+<p id="result"></p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    
+    function submitAnswer1() {
+        const selectedAnswer = document.querySelector('input[name="question1"]:checked');
+        const resultElement = document.getElementById('result1');
+
+
+
+
+
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'int num;') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer2() {
+        const selectedAnswer = document.querySelector('input[name="question2"]:checked');
+        const resultElement = document.getElementById('result2');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'To return a value from the function.') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer3() {
+        const selectedAnswer = document.querySelector('input[name="question3"]:checked');
+        const resultElement = document.getElementById('result3');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Undefined') {
+                resultElement.textContent = 'Correct! C).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer4() {
+        const selectedAnswer = document.querySelector('input[name="question4"]:checked');
+        const resultElement = document.getElementById('result4');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'It is used to get the address of a variable.') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer5() {
+        const selectedAnswer = document.querySelector('input[name="question5"]:checked');
+        const resultElement = document.getElementById('result5');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'A pointer that points to a memory location that has been freed.') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer6() {
+        const selectedAnswer = document.querySelector('input[name="question6"]:checked');
+        const resultElement = document.getElementById('result6');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'struct') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer7() {
+        const selectedAnswer = document.querySelector('input[name="question7"]:checked');
+        const resultElement = document.getElementById('result7');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === '0') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer8() {
+        const selectedAnswer = document.querySelector('input[name="question8"]:checked');
+        const resultElement = document.getElementById('result8');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'rb') {
+                resultElement.textContent = 'Correct! D).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer9() {
+        const selectedAnswer = document.querySelector('input[name="question9"]:checked');
+        const resultElement = document.getElementById('result9');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === '#include') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer10() {
+        const selectedAnswer = document.querySelector('input[name="question10"]:checked');
+        const resultElement = document.getElementById('result10');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === '+') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function calculateScore() {
+        var score = 0;
+
+        // Question 8
+        if (document.querySelector('input[name="question1"]:checked')?.value === "int num;") {
+            score += 1;
+        }
+
+        // Question 9
+        if (document.querySelector('input[name="question2"]:checked')?.value === "To return a value from the function.") {
+            score += 1;
+        }
+
+        // Question 10
+        if (document.querySelector('input[name="question3"]:checked')?.value === "Undefined") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question4"]:checked')?.value === "It is used to get the address of a variable.") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question5"]:checked')?.value === "A pointer that points to a memory location that has been freed.") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question6"]:checked')?.value === "struct") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question7"]:checked')?.value === "0") {
+            score += 1;
+        }
+
+
+
+// Question 10
+        if (document.querySelector('input[name="question8"]:checked')?.value === "rb") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question9"]:checked')?.value === "#include") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question10"]:checked')?.value === "+") {
+            score += 1;
+        }
+
+
+
+        // Display the result
+        document.getElementById("result").innerText = "Your score is: " + score + "/10";
+    }
+
+
+
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Interface</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      background-image: url('/images/hbg1.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    .quiz-container {
+      background-color: #fff;
+      padding: 80px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px 0px #ccc;
+      max-width: 600px;
+      margin: auto;
+      background-image: url('/images/hbg2.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    .quiz-container h2 {
+      margin-bottom: 20px;
+    }
+
+    .quiz-container .question {
+      margin-bottom: 20px;
+    }
+
+    .quiz-container .question label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .buttonruhi {
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      background-color: #00C087;
+      color: white;
+      border: none;
+    }
+
+    .buttonruhi:hover {
+      background-color: #00A376;
+    }
+
+    h5 {
+      font-size: 1.4em;
+      color: #bbbbbb;
+      margin-bottom: 10px;
+      font-family: Garamond, sans-serif;
+    }
+
+    p {
+      font-size: 1.8em;
+      color: black;
+      margin-bottom: 10px;
+      font-family: Garamond, sans-serif;
+    }
+
+    h1 {
+      font-size: 2.1em;
+      color: black;
+      margin-bottom: 10px;
+      font-family: Algerian, sans-serif;
+    }
+
+    label {
+      font-size: 1.4em;
+      color: black;
+      margin-bottom: 10px;
+      font-family: Garamond, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <center><h1>Interesting Fact!</h1></center>
+  <center><h5>HTML is the only language where “head” and “body” can exist separately but still make a perfect team.</h5></center>
+
+  <!-- Questions 1 to 10 -->
+  <div class="question1">
+    <p>1. What is the purpose of the "alt" attribute in an image tag?</p>
+    <label><input type="radio" name="question1" value="To specify the size of the image"> To specify the size of the image</label><br>
+    <label><input type="radio" name="question1" value="To provide alternative text for the image"> To provide alternative text for the image</label><br>
+    <label><input type="radio" name="question1" value="To link to another image"> To link to another image</label><br>
+    <label><input type="radio" name="question1" value="To make the image clickable"> To make the image clickable</label><br>
+    <p id="result1"></p>
+  </div>
+
+  <div class="question2">
+    <p>2. What does HTML stand for?</p>
+    <label><input type="radio" name="question2" value="Hyper Text Markup Language"> Hyper Text Markup Language</label><br>
+    <label><input type="radio" name="question2" value="High Text Markup Language"> High Text Markup Language</label><br>
+    <label><input type="radio" name="question2" value="Hyperlink and Text Markup Language"> Hyperlink and Text Markup Language</label><br>
+    <label><input type="radio" name="question2" value="Hyper Text Multi Language"> Hyper Text Multi Language</label><br>
+    <p id="result2"></p>
+  </div>
+
+  <div class="question3">
+    <p>3. Which attribute is used to specify a unique identifier for an HTML element?</p>
+    <label><input type="radio" name="question3" value="class"> class</label><br>
+    <label><input type="radio" name="question3" value="id"> id</label><br>
+    <label><input type="radio" name="question3" value="name"> name</label><br>
+    <label><input type="radio" name="question3" value="type"> type</label><br>
+    <p id="result3"></p>
+  </div>
+
+  <div class="question4">
+    <p>4. Which attribute in the "img" tag specifies the URL of the image?</p>
+    <label><input type="radio" name="question4" value="source"> source</label><br>
+    <label><input type="radio" name="question4" value="href"> href</label><br>
+    <label><input type="radio" name="question4" value="src"> src</label><br>
+    <label><input type="radio" name="question4" value="link"> link</label><br>
+    <p id="result4"></p>
+  </div>
+
+  <div class="question5">
+    <p>5. What is the purpose of the "label" tag in HTML forms?</p>
+    <label><input type="radio" name="question5" value="To provide a title for the form"> To provide a title for the form</label><br>
+    <label><input type="radio" name="question5" value="To define an input field"> To define an input field</label><br>
+    <label><input type="radio" name="question5" value="To provide a label for an input element"> To provide a label for an input element</label><br>
+    <label><input type="radio" name="question5" value="To submit the form"> To submit the form</label><br>
+    <p id="result5"></p>
+  </div>
+
+  <div class="question6">
+    <p>6. What does the href attribute in the &lt;a&gt; tag specify?</p>
+    <label><input type="radio" name="question6" value="The link text"> The link text</label><br>
+    <label><input type="radio" name="question6" value="The link target"> The link target</label><br>
+    <label><input type="radio" name="question6" value="The URL of the page the link goes to"> The URL of the page the link goes to</label><br>
+    <label><input type="radio" name="question6" value="The style of the link"> The style of the link</label><br>
+    <p id="result6"></p>
+  </div>
+
+  <div class="question7">
+    <p>7. Which attribute is used to specify the width of an image?</p>
+    <label><input type="radio" name="question7" value="width"> width</label><br>
+    <label><input type="radio" name="question7" value="size"> size</label><br>
+    <label><input type="radio" name="question7" value="length"> length</label><br>
+    <label><input type="radio" name="question7" value="height"> height</label><br>
+    <p id="result7"></p>
+  </div>
+
+  <div class="question8">
+    <p>8. Which HTML attribute is used for linking pages?</p>
+    <label><input type="radio" name="question8" value="src"> src</label><br>
+    <label><input type="radio" name="question8" value="href"> href</label><br>
+    <label><input type="radio" name="question8" value="title"> title</label><br>
+    <label><input type="radio" name="question8" value="alt"> alt</label><br>
+    <p id="result8"></p>
+  </div>
+
+  <div class="question9">
+    <p>9. What does the "iframe" tag do in HTML?</p>
+    <label><input type="radio" name="question9" value="Embeds another document within the current HTML document"> Embeds another document within the current HTML document</label><br>
+    <label><input type="radio" name="question9" value="Defines a section in a document"> Defines a section in a document</label><br>
+    <label><input type="radio" name="question9" value="Creates an interactive form"> Creates an interactive form</label><br>
+    <label><input type="radio" name="question9" value="Specifies a script for the document"> Specifies a script for the document</label><br>
+    <p id="result9"></p>
+  </div>
+
+  <div class="question10">
+    <p>10. Which attribute specifies the dimensions of an image?</p>
+    <label><input type="radio" name="question10" value="size"> size</label><br>
+    <label><input type="radio" name="question10" value="dim"> dim</label><br>
+    <label><input type="radio" name="question10" value="width and height"> width and height</label><br>
+    <label><input type="radio" name="question10" value="dimension"> dimension</label><br>
+    <p id="result10"></p>
+  </div>
+
+  <center><button class="buttonruhi" onclick="calculateScore()">Submit Quiz</button></center>
+  <p id="result"></p>
+
+</div>
+
+<script>
+  function calculateScore() {
+    const answers = {
+      question1: "To provide alternative text for the image",
+      question2: "Hyper Text Markup Language",
+      question3: "id",
+      question4: "src",
+      question5: "To provide a label for an input element",
+      question6: "The URL of the page the link goes to",
+      question7: "width",
+      question8: "href",
+      question9: "Embeds another document within the current HTML document",
+      question10: "width and height"
+    };
+
+    let score = 0;
+
+    for (let i = 1; i <= 10; i++) {
+      const selected = document.querySelector(`input[name="question${i}"]:checked`);
+      const result = document.getElementById(`result${i}`);
+
+      if (selected) {
+        if (selected.value === answers[`question${i}`]) {
+          result.textContent = "Correct!";
+          result.style.color = "green";
+          score++;
+        } else {
+          result.textContent = "Wrong Answer.";
+          result.style.color = "red";
+        }
+      } else {
+        result.textContent = "No answer selected.";
+        result.style.color = "orange";
+      }
+    }
+
+    document.getElementById("result").innerText = `Your score is: ${score}/10`;
+  }
+</script>
+
+</body>
+</html>

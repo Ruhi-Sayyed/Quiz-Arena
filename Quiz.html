@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Top Topics</title>
+    <style>
+        body {
+
+            font-family: Roboto, sans-serif;
+
+            text-align: center;
+            background-color: white;
+
+background-image: url('/images/bg6.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+
+
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 1000px;
+
+background-image: url('/images/bg9.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+
+
+
+
+        }
+        h1 {
+            font-size: 2.5em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+
+h2{
+  font-family: Calisto MT, sans-serif;
+
+}
+
+h3 {
+            font-size: 47px;
+color: #71afe5;
+            margin-bottom: 10px;
+font-family: Californian FB, sans-serif;
+
+        }
+
+h5 {
+            font-size: 25px;
+color: gray;
+            margin-bottom: 10px;
+font-family: Californian FB, sans-serif;
+
+        }
+
+
+
+        p {
+            font-size: 1.5em;
+            color: gray;
+            margin-bottom: 10px;
+font-family: Courier New, sans-serif;
+
+        }
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+
+        }
+        .topic {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 30%;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+
+ border: 2px solid black ;
+
+background:#ffffff1a;
+transition:transform 0.3s
+ease, box-shadow 0.3s ease;
+
+background-image: url('/images/bg666.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+
+        }
+
+.topic:hover
+{
+  transform:translateY(-10px);
+box-shadow:0 10px 20px;
+rgba(0,0,0,0.2);
+}
+        .topic img {
+            width: 100%;
+            border-radius: 10px;
+
+ border: 2px solid black ;
+
+        }
+        .topic h3 {
+            font-size: 18px;
+            margin: 10px 0 5px;
+
+        }
+        .topic p {
+            font-size: 14px;
+            color: #888;
+        }
+.end
+{
+   font-size: 35px;
+color: black;
+margin: 20px auto;
+            max-width: 1700px;
+
+background-image: url('bg6.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+ 
+
+}
+
+    </style>
+</head>
+<body>
+            <h1 ><b>Our Top Topics</h1></b>
+<br/>
+</br>
+        <p><b>Test your skills with our top topics with a variety of questions set for beginners and seniors </b></p>
+            <center><p><b>alike!</b></p></center>
+</br>
+</br>
+<div class="container">
+
+        <div class="topics">
+            <div class="topic" onclick="goToNextPage()">
+                <img src="/images/html.jpg" height="200" >
+                
+    <h2>HTML</h2>
+<p>10 Questions</p>
+                            </div>
+
+            <div class="topic" onclick="goToNextPage2()">
+                <img src="/images/javascript.jpg" height="200">
+    <h2>JavaScript</h2>
+<p>10 Questions</p>
+                            </div>
+
+            
+          <div class="topic" onclick="goToNextPage3()">
+          <img src="/images/java.jpg" height="200">
+                    <h2>Java</h2>
+                <p>10 Questions</p>
+                                            </div>
+
+
+                <div class="topic" onclick="goToNextPage4()">
+                          <img src="/images/python.jpg" height="200">
+                         <h2>Python</h2>
+                                <p>10 Questions</p>
+                                                            </div>
+
+                                                            <div class="topic" onclick="goToNextPage5()">
+                                                                <img src="/images/c.jpg" height="200">
+                                                               <h2>C Programming</h2>
+                                                                      <p>10 Questions</p>
+                                                                                                  </div>
+
+         <div class="topic" onclick="goToNextPage6()">
+                                                                                                   
+            <img src="/images/css.jpg" height="200">
+                                                                                                  
+            <h2>CSS</h2>
+                                                                                                        
+            <p>10 Questions</p>
+                                                                                                                       
+        </div>
+
+                            
+</div>
+        </div>
+
+ </div>  
+
+
+<div class="end">
+        <h5><b>Get a taste of it</b><h5>
+<h3><b>Try it out Now</b></h3>
+</div>
+    
+
+
+
+    <script>
+        function goToNextPage() {
+            window.location.href = "html.html";
+        }
+
+ function goToNextPage2() {
+            window.location.href = "javascript.html";
+        }
+
+ function goToNextPage3() {
+            window.location.href = "java.html";
+        }
+
+ function goToNextPage4() {
+            window.location.href = "python.html";
+        }
+
+ function goToNextPage5() {
+            window.location.href = "c.html";
+        }
+
+ function goToNextPage6() {
+            window.location.href = "css.html";
+        }
+
+
+    </script>
+</body>
+</html>

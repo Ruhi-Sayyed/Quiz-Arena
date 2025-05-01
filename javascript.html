@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interface</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+
+
+background-image: url('/images/jsbg1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container {
+            display: none;
+            background-color: #fff;
+            padding: 80px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #ccc;
+            max-width: 600px;
+            margin: auto;
+
+background-image: url('/images/jsbg2.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container h2 {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question label {
+            display: block;
+            margin-bottom: 10px;
+        }
+         .quiz-container .submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+
+                        font-size: 16px;
+            margin: 10px;
+
+        }
+.quiz-container .submit-btn {
+
+   background-color: transparent;
+            color: #FFEB00;
+            border: 2px solid #FFEB00;
+
+}
+
+        .quiz-container .submit-btn:hover {
+            background-color: #FEDF05; /* Fill color on hover */
+            color: white;
+
+        }
+        
+.buttonruhi{
+            
+padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+.buttonruhi{
+
+background-color: #00C087;
+            color: white;
+            border: none;
+
+}
+        .buttonruhi:hover {
+            background-color: #00A376; /* Slightly darker shade on hover */
+
+
+        }
+ h5{
+            font-size: 1.4em;
+color: #bbbbbb;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ p {
+            font-size: 1.8em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ h1 {
+            font-size: 2.1em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Algerian, sans-serif;
+
+        }
+label{
+            font-size: 1.4em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<div class="quiz-container" style="display: block;">
+    <center><h1>Interesting Fact!</center></h1>
+<center><h5>With JavaScript, a web page doesn’t just sit there; it can dance, sing, and even respond to your every click.</h5></center>
+
+    <div class="question1">
+        <p>1.What does let declare in JavaScript?
+  </p>
+        <label>
+            <input type="radio" name="question1" value="Constant"> Constant
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="Variable"> Variable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="Function"> Function
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="Object"> Object
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer1()">submit</center></button>
+    <p id="result1"></p>
+
+
+
+<div class="question2">
+        <p>2.What is null in JavaScript?
+
+ </p>
+        <label>
+            <input type="radio" name="question2" value="Empty object"> Empty object
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="Uninitialized variable"> Uninitialized variable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="Empty string"> Empty string
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="Zero"> Zero
+        </label>
+    </div>
+  <center><button class="submit-btn" onclick="submitAnswer2()">submit</center></button>
+    <p id="result2"></p>
+
+
+
+
+<div class="question3">
+        <p>3.What does this refer to in JavaScript? 
+
+ </p>
+        <label>
+            <input type="radio" name="question3" value="Global object"> Global object</label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="Current object"> Current object
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="Parent object"> Parent object
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="Child object"> Child object</label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer3()">sumit</center></button>
+    <p id="result3"></p>
+
+
+
+<div class="question4">
+        <p>4.What does === check in JavaScript?
+
+ </p>
+        <label>
+            <input type="radio" name="question4" value="Value equality"> Value equality
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="Type and value equality"> Type and value equality
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="Type equality"> Type equality
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="None"> None
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer4()">submit</center></button>
+    <p id="result4"></p>
+
+
+
+<div class="question5">
+        <p>5.What does bind() do in JavaScript?
+
+</p>
+        <label>
+            <input type="radio" name="question5" value="Binds function to object"> Binds function to object
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="Binds object to function"> Binds object to function
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="Binds function to variable"> Binds function to variable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="Binds variable to function"> Binds variable to function
+
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer5()">submit</center></button>
+    <p id="result5"></p>
+
+
+
+
+<div class="question6">
+        <p>6.What is prototype in JavaScript?
+</p>
+        <label>
+            <input type="radio" name="question6" value="Inherited properties"> Inherited properties
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="Own properties"> Own properties
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="Constructor"> Constructor
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="Method"> Method
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer6()">submit</center></button>
+    <p id="result6"></p>
+
+
+
+
+<div class="question7">
+        <p>7.What does try...catch handle in JavaScript?
+
+</p>
+        <label>
+            <input type="radio" name="question7" value="Runtime errors"> Runtime errors
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="Syntax errors"> Syntax errors
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="Logical errors"> Logical errors
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="Semantic errors"> Semantic errors
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer7()">submit</center></button>
+    <p id="result7"></p>
+
+
+
+
+<div class="question8">
+        <p>8.What does call() pass in JavaScript?</p>
+        <label>
+            <input type="radio" name="question8" value="Arguments as array"> Arguments as array
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="Arguments as individual parameters"> Arguments as individual parameters
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="Object as parameter"> Object as parameter
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="Function as parameter"> Function as parameter
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer8()">submit</center></button>
+    <p id="result8"></p>
+
+
+
+
+<div class="question9">
+        <p>9.What does map() return in JavaScript?
+</p>
+        <label>
+            <input type="radio" name="question9" value="New array"> New array
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="Original array"> Original array
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="Object"> Object
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="Null"> Null
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer9()">submit</center></button>
+    <p id="result9"></p>
+
+
+
+
+<div class="question10">
+        <p>10.What does forEach() do in JavaScript?
+</p>
+        <label>
+            <input type="radio" name="question10" value="Returns new array"> Returns new array
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Loops through array"> Loops through array
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Loops through object"> Loops through object
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Returns null"> Returns null
+        </label>
+    </div>
+
+
+    <center><button class="submit-btn" onclick="submitAnswer10()">sumit</center></button>
+    <p id="result10"></p>
+
+<center><button class="buttonruhi" onclick="calculateScore()">Overall Score<center></button>
+
+<p id="result"></p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    function submitAnswer1() {
+        const selectedAnswer = document.querySelector('input[name="question1"]:checked');
+        const resultElement = document.getElementById('result1');
+
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Variable') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer2() {
+        const selectedAnswer = document.querySelector('input[name="question2"]:checked');
+        const resultElement = document.getElementById('result2');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Empty object') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer3() {
+        const selectedAnswer = document.querySelector('input[name="question3"]:checked');
+        const resultElement = document.getElementById('result3');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Current object') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer4() {
+        const selectedAnswer = document.querySelector('input[name="question4"]:checked');
+        const resultElement = document.getElementById('result4');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Type and value equality') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer5() {
+        const selectedAnswer = document.querySelector('input[name="question5"]:checked');
+        const resultElement = document.getElementById('result5');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Binds function to object') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer6() {
+        const selectedAnswer = document.querySelector('input[name="question6"]:checked');
+        const resultElement = document.getElementById('result6');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Inherited properties') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer7() {
+        const selectedAnswer = document.querySelector('input[name="question7"]:checked');
+        const resultElement = document.getElementById('result7');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Runtime errors') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer8() {
+        const selectedAnswer = document.querySelector('input[name="question8"]:checked');
+        const resultElement = document.getElementById('result8');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Arguments as individual parameters') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer9() {
+        const selectedAnswer = document.querySelector('input[name="question9"]:checked');
+        const resultElement = document.getElementById('result9');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'New array') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer10() {
+        const selectedAnswer = document.querySelector('input[name="question10"]:checked');
+        const resultElement = document.getElementById('result10');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Loops through array') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function calculateScore() {
+        var score = 0;
+
+        // Question 8
+        if (document.querySelector('input[name="question1"]:checked')?.value === "Variable") {
+            score += 1;
+        }
+
+        // Question 9
+        if (document.querySelector('input[name="question2"]:checked')?.value === "Empty object") {
+            score += 1;
+        }
+
+        // Question 10
+        if (document.querySelector('input[name="question3"]:checked')?.value === "Current object") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question4"]:checked')?.value === "Type and value equality") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question5"]:checked')?.value === "Binds function to object") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question6"]:checked')?.value === "Inherited properties") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question7"]:checked')?.value === "Runtime errors") {
+            score += 1;
+        }
+
+
+
+// Question 10
+        if (document.querySelector('input[name="question8"]:checked')?.value === "Arguments as individual parameters") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question9"]:checked')?.value === "New array") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question10"]:checked')?.value === "Loops through array") {
+            score += 1;
+        }
+
+
+
+        // Display the result
+        document.getElementById("result").innerText = "Your score is: " + score + "/10";
+    }
+
+
+
+  </script>
+
+
+</body>
+</html>

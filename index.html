@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Californian FB, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f4;
+            background-image: url('/images/bg3.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        header {
+            
+            background-color:#de90ff;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-size: 32px;
+            color: #be2ed6;
+        }
+
+        h5 {
+            font-size: 29px;
+            color: #ca5cdd;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 10px 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        .container {
+            max-width: 1000px;
+            margin: 0px auto;
+            padding: 20px;
+            border: 2px solid #be2ed6;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            background-image: url('/images/bg10.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid #ca5cdd;
+        }
+
+        .feature-item:hover {
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+        }
+
+        .feature-item img {
+            max-width: 50px;
+            margin-bottom: 15px;
+        }
+
+        .feature-item h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .feature-item p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: transparent;
+            color: #ca4fff;
+            border: 2px solid #ca4fff;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #b100cd; /* Fill color on hover */
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .leaderboard, .feedback, .testimonials, .countdown {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+        }
+
+        .leaderboard ul {
+            list-style-type: none;
+        }
+
+        .leaderboard ul li {
+            font-size: 18px;
+            padding: 5px 0;
+        }
+
+        .countdown #timer {
+            font-size: 24px;
+            color: #be2ed6;
+        }
+
+        .testimonials blockquote {
+            font-size: 18px;
+            color: #777;
+            border-left: 4px solid #be2ed6;
+            padding-left: 10px;
+            margin: 10px 0;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        h1{
+            font-size: 40px;
+            color: #ffffff;
+
+        }
+        
+
+        footer {
+    background: #de90ff;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: relative; /* Change from 'fixed' to 'relative' */
+    bottom: 0;
+    margin-top: 20px; /* Add some space from the main content */
+}
+
+.fun-text {
+            font-size: 1.2em;
+            color: #893271;
+            margin-bottom: 20px;
+            font-family: 'Courier New', sans-serif;
+            animation: shake 1s infinite alternate;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(10px); }
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz API Home Page</title>
+</head>
+<body>
+    <header>
+        
+        <h1><b>Welcome to the Quiz Arena!</b></h1>
+        <p class="fun-text">Where brain meets fun – are you ready?</p>
+
+    
+        
+        <div class="auth-buttons"></div>
+
+           <a href="/Quiz"><button class="submit-btn">Take a Quiz</button></a>
+           <a href="/know"><button class="submit-btn">Explore</button></a>
+
+        </div>
+    
+    </header>
+
+    <main>
+        <div class="container">
+            
+            
+
+            <!-- Leaderboard Section -->
+            <section class="leaderboard">
+                <h2>Top Quiz Takers</h2>
+                <ul>
+                    <li><strong>Aman</strong> - 98/100</li>
+                    <li><strong>Rohit</strong> - 95/100</li>
+                    <li><strong>Priya</strong> - 93/100</li>
+                    <li><strong>Sneha</strong> - 90/100</li>
+                </ul>
+            </section>
+
+            <!-- Feedback Form Section -->
+            <section class="feedback">
+                <h2>Your Feedback</h2>
+                <form>
+                    <label for="feedback">Tell us what you think about Quiz API:</label><br>
+                    <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br><br>
+                    <button type="submit" class="submit-btn">Submit Feedback</button>
+                </form>
+            </section>
+
+            <!-- Testimonial Section -->
+            <section class="testimonials">
+                <h2>What Users Say</h2>
+                <blockquote>
+                    "QuizAPI is amazing! It helped me prepare for my technical interview." - <em>Anjali</em>
+                </blockquote>
+                <blockquote>
+                    "I love the daily quiz feature. Keeps me sharp!" - <em>Vikram</em>
+                </blockquote>
+            </section>
+
+            <!-- Countdown Timer Section -->
+            <section class="countdown">
+                <h2>Next Big Quiz Starts In:</h2>
+                <div id="timer">
+                    <span id="days"></span> Days 
+                    <span id="hours"></span> Hours 
+                    <span id="minutes"></span> Minutes 
+                    <span id="seconds"></span> Seconds
+                </div>
+            </section>
+</div>
+            <script>
+
+                // Set the date we're counting down to
+                var countDownDate = new Date("Dec 31, 2024 23:59:59").getTime();
+
+                // Update the count down every 1 second
+                var countdownFunction = setInterval(function() {
+
+                    // Get today's date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes, and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Display the result in the respective elements
+                    document.getElementById("days").innerHTML = days;
+                    document.getElementById("hours").innerHTML = hours;
+                    document.getElementById("minutes").innerHTML = minutes;
+                    document.getElementById("seconds").innerHTML = seconds;
+
+                    // If the count down is over, display a message
+                    if (distance < 0) {
+                        clearInterval(countdownFunction);
+                        document.getElementById("timer").innerHTML = "The quiz has started!";
+                    }
+                }, 1000);
+            </script>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Quiz API. All rights reserved.</p>
+    </footer>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interface</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E7FFC3;
+            margin: 0;
+            padding: 20px;
+
+
+background-image: url('/images/cssbg1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container {
+            display: none;
+            background-color: #fff;
+            padding: 80px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #ccc;
+            max-width: 600px;
+            margin: auto;
+
+background-image: url('/images/cssbg2.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container h2 {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+ .quiz-container .submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+
+                        font-size: 16px;
+            margin: 10px;
+
+        }
+.quiz-container .submit-btn {
+
+   background-color: transparent;
+            color: #93C572;
+            border: 2px solid #93C572;
+
+}
+
+        .quiz-container .submit-btn:hover {
+            background-color: #93C572; /* Fill color on hover */
+            color: white;
+
+        }
+        
+        .start-quiz {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+
+
+position:absolute;
+top:30%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+        }
+
+        .start-quiz button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color:#7CC1D7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .start-quiz button:hover {
+            background-color:#4BAAC8;
+        }
+
+.buttonruhi{
+            
+padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+.buttonruhi{
+
+background-color: #00C087;
+            color: white;
+            border: none;
+
+}
+        .buttonruhi:hover {
+            background-color: #00A376; /* Slightly darker shade on hover */
+
+
+        }
+ h5{
+            font-size: 1.4em;
+color: #bbbbbb;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ p {
+            font-size: 1.8em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ h1 {
+            font-size: 2.1em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Algerian, sans-serif;
+
+        }
+label{
+            font-size: 1.4em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<div class="quiz-container" style="display: block;">
+    <center><h1>Interesting Fact!</center></h1>
+<center><h5>CSS is like a fashion designer who shows up to the party and makes everything look fabulous after you've already picked the clothes.</center></h5>
+
+    <div class="question1">
+        <p>1.What does CSS stand for?
+  </p>
+        <label>
+            <input type="radio" name="question1" value="Computer Style Sheets">Computer Style Sheets
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="Cascading Style Sheets">Cascading Style Sheets
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="Creative Style Sheets">Creative Style Sheets
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="Colorful Style Sheets">Colorful Style Sheets
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer1()">submit</center></button>
+    <p id="result1"></p>
+
+
+
+<div class="question2">
+        <p>2.Which CSS property is used to set the background color of an element?
+
+ </p>
+        <label>
+            <input type="radio" name="question2" value="color">color 
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="background-color">background-color
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="border-color">border-color 
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="text-color">text-color
+        </label>
+    </div>
+  <center><button class="submit-btn" onclick="submitAnswer2()">submit</center></button>
+    <p id="result2"></p>
+
+
+
+
+<div class="question3">
+        <p>3. What is the difference between margin and padding?
+
+ </p>
+        <label>
+            <input type="radio" name="question3" value="Margin is inside the border, padding is outside">Margin is inside the border, padding is outside
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="Margin is outside the border, padding is inside">Margin is outside the border, padding is inside
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="Margin is for layout, padding is for visual styling">Margin is for layout, padding is for visual styling
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="Margin is for visual styling, padding is for layout"> Margin is for visual styling, padding is for layout
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer3()">submit</center></button>
+    <p id="result3"></p>
+
+
+
+<div class="question4">
+        <p>4.How do you select an element with the class "header" in CSS?
+
+ </p>
+        <label>
+            <input type="radio" name="question4" value=".header"> .header
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="#header"> #header
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="header"> header
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="*header">*header
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer4()">submit</center></button>
+    <p id="result4"></p>
+
+
+
+<div class="question5">
+        <p>5.What is the purpose of the "display" property in CSS?
+
+</p>
+        <label>
+            <input type="radio" name="question5" value="To set the background color">To set the background color
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="To set the text color">To set the text color
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="To define the layout of an element">To define the layout of an element
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="To set the font size">To set the font size
+
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer5()">submit</center></button>
+    <p id="result5"></p>
+
+
+
+
+<div class="question6">
+        <p>6.How do you add a border to an element in CSS?
+</p>
+        <label>
+            <input type="radio" name="question6" value="border: 1px solid black">border: 1px solid black
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="border-color: black">border-color: black
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="border-width: 1px">border-width: 1px
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="border-style: solid"> border-style: solid
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer6()">submit</center></button>
+    <p id="result6"></p>
+
+
+
+
+<div class="question7">
+        <p>7.What does float: left do in CSS?
+
+</p>
+        <label>
+            <input type="radio" name="question7" value="Aligns text to the left"> Aligns text to the left
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="Moves an element to the left of its parent">Moves an element to the left of its parent
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="Hides an elemen"> Hides an elemen
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="Removes an element's margin">Removes an element's margin
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer7()">submit</center></button>
+    <p id="result7"></p>
+
+
+
+
+<div class="question8">
+        <p>8.How do you add a shadow to an element in CSS?</p>
+        <label>
+            <input type="radio" name="question8" value="box-shadow: 0 0 10px black">box-shadow: 0 0 10px black
+ </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="shadow: 0 0 10px black"> shadow: 0 0 10px black
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="border-shadow: 0 0 10px black">border-shadow: 0 0 10px black
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="text-shadow: 0 0 10px black"> text-shadow: 0 0 10px black
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer8()">submit</center></button>
+    <p id="result8"></p>
+
+
+
+
+<div class="question9">
+        <p>9.What is the purpose of the "position" property in CSS??
+</p>
+        <label>
+            <input type="radio" name="question9" value="To set the background color">To set the background color
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="To set the text color"> To set the text color
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="To define the position of an element">To define the position of an element
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="To set the font size">To set the font size
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer9()">submit</center></button>
+    <p id="result9"></p>
+
+
+
+
+<div class="question10">
+        <p>10.How do you create a CSS media query?
+</p>
+        <label>
+            <input type="radio" name="question10" value="@media screen and (max-width: 600px)"> @media screen and (max-width: 600px)
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="@media print and (max-width: 600px)">@media print and (max-width: 600px)
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="@media screen or (max-width: 600px)">@media screen or (max-width: 600px)
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="@media print or (max-width: 600px)">@media print or (max-width: 600px)
+        </label>
+    </div>
+
+
+    <center><button class="submit-btn" onclick="submitAnswer10()">submit</center></button>
+    <p id="result10"></p>
+
+<center><button class="buttonruhi" onclick="calculateScore()">Overall Score<center></button>
+
+<p id="result"></p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    function submitAnswer1() {
+        const selectedAnswer = document.querySelector('input[name="question1"]:checked');
+        const resultElement = document.getElementById('result1');
+
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Cascading Style Sheets') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer2() {
+        const selectedAnswer = document.querySelector('input[name="question2"]:checked');
+        const resultElement = document.getElementById('result2');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'background-color') {
+                resultElement.textContent = 'Correct! b).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer3() {
+        const selectedAnswer = document.querySelector('input[name="question3"]:checked');
+        const resultElement = document.getElementById('result3');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Margin is outside the border, padding is inside') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer4() {
+        const selectedAnswer = document.querySelector('input[name="question4"]:checked');
+        const resultElement = document.getElementById('result4');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === '.header') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer5() {
+        const selectedAnswer = document.querySelector('input[name="question5"]:checked');
+        const resultElement = document.getElementById('result5');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'To define the layout of an element') {
+                resultElement.textContent = 'Correct! C).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer6() {
+        const selectedAnswer = document.querySelector('input[name="question6"]:checked');
+        const resultElement = document.getElementById('result6');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'border: 1px solid black') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer7() {
+        const selectedAnswer = document.querySelector('input[name="question7"]:checked');
+        const resultElement = document.getElementById('result7');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Moves an element to the left of its parent') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer8() {
+        const selectedAnswer = document.querySelector('input[name="question8"]:checked');
+        const resultElement = document.getElementById('result8');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'box-shadow: 0 0 10px black') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer9() {
+        const selectedAnswer = document.querySelector('input[name="question9"]:checked');
+        const resultElement = document.getElementById('result9');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'To define the position of an element') {
+                resultElement.textContent = 'Correct! C).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer10() {
+        const selectedAnswer = document.querySelector('input[name="question10"]:checked');
+        const resultElement = document.getElementById('result10');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === '@media screen and (max-width: 600px)') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function calculateScore() {
+        var score = 0;
+
+        // Question 8
+        if (document.querySelector('input[name="question1"]:checked')?.value === "Cascading Style Sheets") {
+            score += 1;
+        }
+
+        // Question 9
+        if (document.querySelector('input[name="question2"]:checked')?.value === "background-color") {
+            score += 1;
+        }
+
+        // Question 10
+        if (document.querySelector('input[name="question3"]:checked')?.value === "Margin is outside the border, padding is inside") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question4"]:checked')?.value === ".header") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question5"]:checked')?.value === "To define the layout of an element") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question6"]:checked')?.value === "border: 1px solid black") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question7"]:checked')?.value === "Moves an element to the left of its parent") {
+            score += 1;
+        }
+
+
+
+// Question 10
+        if (document.querySelector('input[name="question8"]:checked')?.value === "box-shadow: 0 0 10px black") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question9"]:checked')?.value === "To define the position of an element") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question10"]:checked')?.value === "@media screen and (max-width: 600px)") {
+            score += 1;
+        }
+
+
+
+        // Display the result
+        document.getElementById("result").innerText = "Your score is: " + score + "/10";
+    }
+
+
+
+  </script>
+
+
+</body>
+</html>

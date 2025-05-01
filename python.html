@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interface</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+
+
+background-image: url('/images/pybg1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container {
+            display: block;
+            background-color: #fff;
+            padding: 80px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #ccc;
+            max-width: 600px;
+            margin: auto;
+
+background-image: url('/images/pybg2.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container h2 {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .quiz-container .submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+
+                        font-size: 16px;
+            margin: 10px;
+
+        }
+.quiz-container .submit-btn {
+
+   background-color: transparent;
+            color: #d5c5ef;
+            border: 2px solid #d5c5ef;
+
+}
+
+        .quiz-container .submit-btn:hover {
+            background-color: #cbb7eb; /* Fill color on hover */
+            color: white;
+
+        }
+        
+
+position:absolute;
+top:30%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+        }
+
+       
+ .start-quiz button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color:#7CC1D7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .start-quiz button:hover {
+            background-color:#4BAAC8;
+        }
+
+.buttonruhi{
+            
+padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+.buttonruhi{
+
+background-color: #00C087;
+            color: white;
+            border: none;
+
+}
+        .buttonruhi:hover {
+            background-color: #00A376; /* Slightly darker shade on hover */
+
+
+        }
+h5{
+            font-size: 1.4em;
+color: #bbbbbb;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ p {
+            font-size: 1.8em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ h1 {
+            font-size: 2.1em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Algerian, sans-serif;
+
+        }
+label{
+            font-size: 1.4em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+
+
+
+    
+<div class="quiz-container"
+style="display: block;">
+    
+    <center><h1>Interesting Fact!</center></h1>
+<center><h5>Python might not be a snake, but it’ll still wrap you in a cozy, bug-free code embrace.</center></h5>
+
+    <div class="question1">
+        <p>1.What is the purpose of the for loop?
+  </p>
+        <label>
+            <input type="radio" name="question1" value="To execute a block of code for each item in a collection"> To execute a block of code for each item in a collection
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="To execute a block of code while a condition is true"> To execute a block of code while a condition is true
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="To declare a variable"> To declare a variable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="To define a function"> To define a function
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer1()">submit</center></button>
+    <p id="result1"></p>
+
+
+
+<div class="question2">
+        <p>2.What is the purpose of the def keyword?
+
+ </p>
+        <label>
+            <input type="radio" name="question2" value="To declare a variable"> To declare a variable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="To define a function"> To define a function
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="To execute a block of code"> To execute a block of code
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="To import a module">To import a module
+        </label>
+    </div>
+  <center><button class="submit-btn" onclick="submitAnswer2()">submit</center></button>
+    <p id="result2"></p>
+
+
+
+
+<div class="question3">
+        <p>3.Which module is used for file input/output operations?
+
+ </p>
+        <label>
+            <input type="radio" name="question3" value="os">os </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="sys"> sys
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="io"> io
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="file"> file</label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer3()">submit</center></button>
+    <p id="result3"></p>
+
+
+
+<div class="question4">
+        <p>4.What is the purpose of the try-except block?
+
+ </p>
+        <label>
+            <input type="radio" name="question4" value="To execute a block of code if an error occurs"> To execute a block of code if an error occurs
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="To execute a block of code if no error occurs"> To execute a block of code if no error occurs
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="To declare a variable"> To declare a variable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="To define a function"> To define a function
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer4()">submit</center></button>
+    <p id="result4"></p>
+
+
+
+<div class="question5">
+        <p>5.What is the print function in Python?
+
+</p>
+        <label>
+            <input type="radio" name="question5" value="print()"> print()
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="printf()"> printf()
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="println()"> println()
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="printl()"> printl()
+
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer5()">submit</center></button>
+    <p id="result5"></p>
+
+
+
+
+<div class="question6">
+        <p>6.Which data type is used for whole numbers in Python?
+</p>
+        <label>
+            <input type="radio" name="question6" value="int"> int
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="float"> float
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="string"> string
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="boolean"> boolean
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer6()">submit</center></button>
+    <p id="result6"></p>
+
+
+
+
+<div class="question7">
+        <p>7.What is the purpose of the len() function?
+
+</p>
+        <label>
+            <input type="radio" name="question7" value="To calculate the length of a string"> To calculate the length of a string
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="To calculate the length of a list"> To calculate the length of a list
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="To calculate the length of a dictionary"> To calculate the length of a dictionary
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="All of the above"> All of the above
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer7()">submit</center></button>
+    <p id="result7"></p>
+
+
+
+
+<div class="question8">
+        <p>8.What is the difference between == and =?</p>
+        <label>
+            <input type="radio" name="question8" value="== is for assignment, = is for comparison"> == is for assignment, = is for comparison
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="== is for comparison, = is for assignment"> == is for comparison, = is for assignment
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="Both are used for assignment"> Both are used for assignment
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="Both are used for comparison"> Both are used for comparison
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer8()">submit</center></button>
+    <p id="result8"></p>
+
+
+
+
+<div class="question9">
+        <p>9.What is the purpose of the if statement?
+</p>
+        <label>
+            <input type="radio" name="question9" value="To execute a block of code if a condition is true"> To execute a block of code if a condition is true
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="To execute a block of code if a condition is false"> To execute a block of code if a condition is false
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="To declare a variable"> To declare a variable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="To define a function"> To define a function
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer9()">submit</center></button>
+    <p id="result9"></p>
+
+
+
+
+<div class="question10">
+        <p>10.Which data structure is used for ordered collections in Python?
+</p>
+        <label>
+            <input type="radio" name="question10" value="List"> List
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Tuple"> dim
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Dictionary"> Dictionary
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Set"> Set
+        </label>
+    </div>
+
+
+    <center><button class="submit-btn" onclick="submitAnswer10()">submit</center></button>
+    <p id="result10"></p>
+
+<center><button class="buttonruhi" onclick="calculateScore()">Overall Score<center></button>
+
+<p id="result"></p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    
+    function submitAnswer1() {
+        const selectedAnswer = document.querySelector('input[name="question1"]:checked');
+        const resultElement = document.getElementById('result1');
+
+
+
+
+
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'To execute a block of code for each item in a collection') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer2() {
+        const selectedAnswer = document.querySelector('input[name="question2"]:checked');
+        const resultElement = document.getElementById('result2');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'To define a function') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer3() {
+        const selectedAnswer = document.querySelector('input[name="question3"]:checked');
+        const resultElement = document.getElementById('result3');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'io') {
+                resultElement.textContent = 'Correct! C).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer4() {
+        const selectedAnswer = document.querySelector('input[name="question4"]:checked');
+        const resultElement = document.getElementById('result4');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'To execute a block of code if an error occurs') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer5() {
+        const selectedAnswer = document.querySelector('input[name="question5"]:checked');
+        const resultElement = document.getElementById('result5');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'print()') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer6() {
+        const selectedAnswer = document.querySelector('input[name="question6"]:checked');
+        const resultElement = document.getElementById('result6');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'int') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer7() {
+        const selectedAnswer = document.querySelector('input[name="question7"]:checked');
+        const resultElement = document.getElementById('result7');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'All of the above') {
+                resultElement.textContent = 'Correct! D).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer8() {
+        const selectedAnswer = document.querySelector('input[name="question8"]:checked');
+        const resultElement = document.getElementById('result8');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === '== is for comparison, = is for assignment') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer9() {
+        const selectedAnswer = document.querySelector('input[name="question9"]:checked');
+        const resultElement = document.getElementById('result9');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'To execute a block of code if a condition is true') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer10() {
+        const selectedAnswer = document.querySelector('input[name="question10"]:checked');
+        const resultElement = document.getElementById('result10');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'List') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function calculateScore() {
+        var score = 0;
+
+        // Question 8
+        if (document.querySelector('input[name="question1"]:checked')?.value === "To execute a block of code for each item in a collection") {
+            score += 1;
+        }
+
+        // Question 9
+        if (document.querySelector('input[name="question2"]:checked')?.value === "To define a function") {
+            score += 1;
+        }
+
+        // Question 10
+        if (document.querySelector('input[name="question3"]:checked')?.value === "io") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question4"]:checked')?.value === "To execute a block of code if an error occurs") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question5"]:checked')?.value === "print()") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question6"]:checked')?.value === "int") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question7"]:checked')?.value === "All of the above") {
+            score += 1;
+        }
+
+
+
+// Question 10
+        if (document.querySelector('input[name="question8"]:checked')?.value === "== is for comparison, = is for assignment") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question9"]:checked')?.value === "To execute a block of code if a condition is true") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question10"]:checked')?.value === "List") {
+            score += 1;
+        }
+
+
+
+        // Display the result
+        document.getElementById("result").innerText = "Your score is: " + score + "/10";
+    }
+
+
+
+  </script>
+
+
+</body>
+</html>

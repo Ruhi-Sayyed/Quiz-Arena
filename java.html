@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interface</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+
+
+background-image: url('/images/jbg1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container {
+            display: block;
+            background-color: #fff;
+            padding: 80px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #ccc;
+            max-width: 600px;
+            margin: auto;
+
+background-image: url('/images/jbg2.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+        }
+        .quiz-container h2 {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question {
+            margin-bottom: 20px;
+        }
+        .quiz-container .question label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .quiz-container .submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+
+                        font-size: 16px;
+            margin: 10px;
+
+        }
+.quiz-container .submit-btn {
+
+   background-color: transparent;
+            color: #c39d76;
+            border: 2px solid #c39d76;
+
+}
+
+        .quiz-container .submit-btn:hover {
+            background-color:#78472b; /* Fill color on hover */
+            color: white;
+
+        }
+        
+
+position:absolute;
+top:30%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+        }
+
+       
+ .start-quiz button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color:#7CC1D7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .start-quiz button:hover {
+            background-color:#4BAAC8;
+        }
+
+.buttonruhi{
+            
+padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+.buttonruhi{
+
+background-color: #00C087;
+            color: white;
+            border: none;
+
+}
+        .buttonruhi:hover {
+            background-color: #00A376; /* Slightly darker shade on hover */
+
+
+        }
+h5{
+            font-size: 1.4em;
+color: #bbbbbb;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ p {
+            font-size: 1.8em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+ h1 {
+            font-size: 2.1em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Algerian, sans-serif;
+
+        }
+label{
+            font-size: 1.4em;
+color: ##71afe5;
+            margin-bottom: 10px;
+font-family: Garamond, sans-serif;
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+
+
+    
+<div class="quiz-container"
+style="display: block;">
+    
+    <center><h1>Interesting Fact!</center></h1>
+<center><h5>Java: where even your coffee needs to be declared and initialized before you can enjoy it.</center></h5>
+
+    <div class="question1">
+        <p>1.Which of the following is the correct way to declare a variable in Java?  </p>
+        <label>
+            <input type="radio" name="question1" value="int num = 10;">int num = 10;
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="int num; = 10"> int num; = 10
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="num int = 10;"> num int = 10;
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question1" value="num = 10 int;"> num = 10 int;
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer1()">submit</center></button>
+    <p id="result1"></p>
+
+
+
+<div class="question2">
+        <p>2.What is the output of the following Java code?</br>
+System.out.println(10 + 5 + " Java");
+
+ </p>
+        <label>
+            <input type="radio" name="question2" value="15 Java"> 15 Java
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="Java 15"> Java 15
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="15"> 15
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question2" value="Java 10 5">Java 10 5
+        </label>
+    </div>
+  <center><button class="submit-btn" onclick="submitAnswer2()">submit</center></button>
+    <p id="result2"></p>
+
+
+
+
+<div class="question3">
+        <p>3.Which of the following data types is not a primitive data type in Java?
+
+ </p>
+        <label>
+            <input type="radio" name="question3" value="int"> int       </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="char">char
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="float">float
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question3" value="String"> String      </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer3()">submit</center></button>
+    <p id="result3"></p>
+
+
+
+<div class="question4">
+        <p>4.What type of exception is a FileNotFoundException?
+
+
+ </p>
+        <label>
+            <input type="radio" name="question4" value="Checked Exception">Checked Exception
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="Unchecked Exception">Unchecked Exception
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="Runtime Exception"> Runtime Exception
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question4" value="Error">Error
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer4()">submit</center></button>
+    <p id="result4"></p>
+
+
+
+<div class="question5">
+        <p>5.Which of the following is used to handle exceptions in Java?
+
+</p>
+        <label>
+            <input type="radio" name="question5" value="try-catch"> try-catch
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="try-finally"> try-finally
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="catch-finally"> catch-finally
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question5" value="throw-catch">throw-catch
+
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer5()">submit</center></button>
+    <p id="result5"></p>
+
+
+
+
+<div class="question6">
+        <p>6.Which of the following keywords is used to inherit a class in Java?
+</p>
+        <label>
+            <input type="radio" name="question6" value="extends">extends
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="implements">implements
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="inherits"> inherits
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question6" value="super"> super
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer6()">submit</center></button>
+    <p id="result6"></p>
+
+
+
+
+<div class="question7">
+        <p>7.Which of the following interfaces is used to implement a list in Java?
+
+</p>
+        <label>
+            <input type="radio" name="question7" value="Set"> Set
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="Map"> Map
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="List"> List
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question7" value="Queue">Queue
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer7()">submit</center></button>
+    <p id="result7"></p>
+
+
+
+
+<div class="question8">
+        <p>8.Which interface must be implemented to create a thread in Java?</p>
+        <label>
+            <input type="radio" name="question8" value="Runnable"> Runnable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value=" Callable">  Callable
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="Thread"> Thread
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question8" value="Executor"> Executor
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer8()">submit</center></button>
+    <p id="result8"></p>
+
+
+
+
+<div class="question9">
+        <p>9.What is the default priority of a thread in Java?
+</p>
+        <label>
+            <input type="radio" name="question9" value="1">1
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="5"> 5
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="10"> 10
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question9" value="Thread.MAX_PRIORITY"> Thread.MAX_PRIORITY
+        </label>
+    </div>
+
+  <center><button class="submit-btn" onclick="submitAnswer9()">submit</center></button>
+    <p id="result9"></p>
+
+
+
+
+<div class="question10">
+        <p>10.Which class provides a method to synchronize code in Java?
+</p>
+        <label>
+            <input type="radio" name="question10" value="Thread"> Thread
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Synchronized">Synchronized
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Object">Object
+        </label>
+</br>
+        <label>
+            <input type="radio" name="question10" value="Lock"> Lock
+        </label>
+    </div>
+
+
+    <center><button class="submit-btn" onclick="submitAnswer10()">submit</center></button>
+    <p id="result10"></p>
+
+<center><button class="buttonruhi" onclick="calculateScore()">Overall Score<center></button>
+
+<p id="result"></p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    
+    function submitAnswer1() {
+        const selectedAnswer = document.querySelector('input[name="question1"]:checked');
+        const resultElement = document.getElementById('result1');
+
+
+
+
+
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'int num = 10;') {
+                resultElement.textContent = 'Correct! A ).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer2() {
+        const selectedAnswer = document.querySelector('input[name="question2"]:checked');
+        const resultElement = document.getElementById('result2');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === '15 Java') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer3() {
+        const selectedAnswer = document.querySelector('input[name="question3"]:checked');
+        const resultElement = document.getElementById('result3');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'String') {
+                resultElement.textContent = 'Correct! C).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer4() {
+        const selectedAnswer = document.querySelector('input[name="question4"]:checked');
+        const resultElement = document.getElementById('result4');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Checked Exception') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer5() {
+        const selectedAnswer = document.querySelector('input[name="question5"]:checked');
+        const resultElement = document.getElementById('result5');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'try-catch') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer6() {
+        const selectedAnswer = document.querySelector('input[name="question6"]:checked');
+        const resultElement = document.getElementById('result6');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'extends') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer7() {
+        const selectedAnswer = document.querySelector('input[name="question7"]:checked');
+        const resultElement = document.getElementById('result7');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'List') {
+                resultElement.textContent = 'Correct! C).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer8() {
+        const selectedAnswer = document.querySelector('input[name="question8"]:checked');
+        const resultElement = document.getElementById('result8');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === 'Runnable') {
+                resultElement.textContent = 'Correct! A).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer9() {
+        const selectedAnswer = document.querySelector('input[name="question9"]:checked');
+        const resultElement = document.getElementById('result9');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === '5') {
+                resultElement.textContent = 'Correct! B).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function submitAnswer10() {
+        const selectedAnswer = document.querySelector('input[name="question10"]:checked');
+        const resultElement = document.getElementById('result10');
+
+        if (selectedAnswer) {
+            if (selectedAnswer.value === ' Object') {
+                resultElement.textContent = 'Correct! C).';
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = 'Wrong Answer.';
+                resultElement.style.color = 'red';
+            }
+        } else {
+            resultElement.textContent = 'Please select an answer!';
+            resultElement.style.color = 'orange';
+        }
+    }
+
+function calculateScore() {
+        var score = 0;
+
+        // Question 8
+        if (document.querySelector('input[name="question1"]:checked')?.value === "int num = 10;") {
+            score += 1;
+        }
+
+        // Question 9
+        if (document.querySelector('input[name="question2"]:checked')?.value === "15 Java") {
+            score += 1;
+        }
+
+        // Question 10
+        if (document.querySelector('input[name="question3"]:checked')?.value === "String") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question4"]:checked')?.value === "Checked Exception") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question5"]:checked')?.value === "try-catch") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question6"]:checked')?.value === "extends") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question7"]:checked')?.value === "List") {
+            score += 1;
+        }
+
+
+
+// Question 10
+        if (document.querySelector('input[name="question8"]:checked')?.value === "Runnable") {
+            score += 1;
+        }
+
+// Question 10
+        if (document.querySelector('input[name="question9"]:checked')?.value === "5") {
+            score += 1;
+        }
+
+
+// Question 10
+        if (document.querySelector('input[name="question10"]:checked')?.value === "Object") {
+            score += 1;
+        }
+
+
+
+        // Display the result
+        document.getElementById("result").innerText = "Your score is: " + score + "/10";
+    }
+
+
+
+  </script>
+
+
+</body>
+</html>
