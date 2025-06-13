@@ -1,13 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const con = require('./DB_Conn.js');
+const con = require('./DB_Conn.js');  // your MySQL connection
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const publicpath = path.join(__dirname, 'public');
 app.use(express.static(publicpath));
@@ -27,14 +29,19 @@ app.get('/Registration', (req, res) => {
     res.sendFile(path.join(publicpath, 'register.html'));
 });
 
-//Quiz
+// Quiz
 app.get('/Quiz', (req, res) => {
     res.sendFile(path.join(publicpath, 'Quiz.html'));
 });
 
-//Know
+// Know
 app.get('/Know', (req, res) => {
     res.sendFile(path.join(publicpath, 'Know.html'));
+});
+
+// Tutorial (added in main branch)
+app.get('/tutorial', (req, res) => {
+    res.sendFile(path.join(publicpath, 'tutorial.html'));
 });
 
 // Forgot Password - form
@@ -69,7 +76,9 @@ app.post('/forgot-password', (req, res) => {
             }
         });
 
-        const resetLink = `http://192.168.96.140:8100/reset-password?token=${resetToken}`;
+        const BASE_URL = process.env.BASE_URL || 'http://localhost:8100';
+        const resetLink = `${BASE_URL}/reset-password?token=${resetToken}`;
+
         const mailOptions = {
             from: 'ruhisayyed929@gmail.com',
             to: email,
@@ -180,6 +189,40 @@ app.post("/Loginvalidation", (req, res) => {
     });
 });
 
-app.listen(8100, () => {
-    console.log("Server running on http://192.168.96.140:8100");
+// Feedback POST endpoint
+app.post('/feedback', (req, res) => {
+    const { feedback } = req.body;
+
+    if (!feedback || feedback.trim().length === 0) {
+        return res.status(400).send('Feedback cannot be empty.');
+    }
+
+    const sql = 'INSERT INTO feedback (feedback) VALUES (?)';
+    con.query(sql, [feedback], (err, result) => {
+        if (err) {
+            console.error('Error saving feedback:', err);
+            return res.status(500).send('Failed to save feedback.');
+        }
+        console.log('Feedback saved successfully.');
+        res.send('Thank you for your feedback!');
+    });
+});
+
+// Feedback GET endpoint
+app.get('/feedbacks', (req, res) => {
+    const sql = 'SELECT * FROM feedback ORDER BY id DESC';
+    con.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching feedback:', err);
+            return res.status(500).json({ error: 'Failed to fetch feedback' });
+        }
+        res.json(results);
+    });
+});
+
+// Start the server
+
+const PORT = process.env.PORT || 8100;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

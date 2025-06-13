@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reading Comprehension Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .passage {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      line-height: 1.6;
+      font-size: 1.1em;
+      color: #444;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Reading Comprehension Quiz</h2>
+
+  <div class="passage" id="passage"><strong>Passage:</strong></div>
+  <div class="summary" id="summary"></div>
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    const passages = [
+      {
+        text: `Trees play a vital role in maintaining a healthy environment. They produce oxygen, which is essential for all living beings to breathe. Trees also absorb carbon dioxide, helping to reduce the effects of climate change. Additionally, they provide shelter and food for many animals and insects. Trees help to prevent soil erosion by holding the soil in place with their roots. Moreover, they offer shade and help to cool down urban areas, making cities more comfortable during hot weather. Planting and protecting trees is crucial for sustaining life on Earth.`,
+        questions: [
+          {
+            question: "What do trees produce that is essential for living beings?",
+            options: ["Oxygen", "Carbon dioxide", "Nitrogen"],
+            answer: "Oxygen",
+            explanation: "Trees produce oxygen, which is necessary for breathing."
+          },
+          {
+            question: "How do trees help reduce the effects of climate change?",
+            options: ["By absorbing carbon dioxide", "By producing nitrogen", "By giving shade only"],
+            answer: "By absorbing carbon dioxide",
+            explanation: "Trees absorb carbon dioxide, which helps reduce climate change."
+          },
+          {
+            question: "What role do tree roots play?",
+            options: ["Hold soil in place", "Produce oxygen", "Provide food for animals"],
+            answer: "Hold soil in place",
+            explanation: "Tree roots prevent soil erosion by holding the soil."
+          },
+          {
+            question: "Which of the following do trees NOT provide?",
+            options: ["Food for animals", "Shade in cities", "Electricity"],
+            answer: "Electricity",
+            explanation: "Trees do not provide electricity."
+          },
+          {
+            question: "Why is planting trees important?",
+            options: ["To sustain life on Earth", "To increase soil erosion", "To increase carbon dioxide"],
+            answer: "To sustain life on Earth",
+            explanation: "Planting trees helps sustain life by supporting the environment."
+          },
+          {
+            question: "What benefit do trees offer to urban areas?",
+            options: ["They cool down the area", "They increase pollution", "They block sunlight completely"],
+            answer: "They cool down the area",
+            explanation: "Trees provide shade and help cool urban areas."
+          }
+        ]
+      },
+      {
+        text: `The invention of the internet has revolutionized communication and access to information. Before its existence, people relied heavily on newspapers, books, and letters. Now, anyone with a device and an internet connection can access vast amounts of data in seconds. Social media platforms allow people to stay connected, share ideas, and raise awareness. However, it also brings challenges such as misinformation and privacy concerns. Despite these, the internet remains one of the most impactful innovations in human history.`,
+        questions: [
+          {
+            question: "What did people rely on before the internet?",
+            options: ["Books and letters", "Smartphones", "Social media"],
+            answer: "Books and letters",
+            explanation: "People used books, letters, and newspapers for information and communication."
+          },
+          {
+            question: "What has the internet revolutionized?",
+            options: ["Transportation", "Communication", "Cooking"],
+            answer: "Communication",
+            explanation: "The internet changed how we communicate and access information."
+          },
+          {
+            question: "What is one major benefit of social media?",
+            options: ["Spreading misinformation", "Raising awareness", "Blocking data"],
+            answer: "Raising awareness",
+            explanation: "Social media helps raise awareness and connect people."
+          },
+          {
+            question: "What is a challenge of the internet?",
+            options: ["Cooking faster", "Building houses", "Privacy concerns"],
+            answer: "Privacy concerns",
+            explanation: "One of the internet’s challenges is privacy issues."
+          },
+          {
+            question: "Why is the internet considered impactful?",
+            options: ["Because it's old", "It limits knowledge", "It provides fast access to information"],
+            answer: "It provides fast access to information",
+            explanation: "The internet allows quick access to data and resources."
+          },
+          {
+            question: "What allows people to connect on the internet?",
+            options: ["Newspapers", "Social media", "Libraries"],
+            answer: "Social media",
+            explanation: "Social media connects people online."
+          }
+        ]
+      }
+    ];
+
+    const passageDiv = document.getElementById('passage');
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let selectedQuiz;
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+
+      selectedQuiz = passages[Math.floor(Math.random() * passages.length)];
+      passageDiv.innerHTML = `<strong>Passage:</strong><br><br>${selectedQuiz.text}`;
+
+      selectedQuiz.questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${index + 1}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      selectedQuiz.questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Reading Comprehension Quiz!</h3>
+        <p>You scored <strong>${score}</strong> out of <strong>6</strong>.</p>
+        <p>Correct: <strong>${correctCount}</strong></p>
+        <p>Wrong: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Grade: <strong>${grade}</strong></p>
+      `;
+
+      submitBtn.disabled = true;
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function resetQuiz() {
+      submitBtn.disabled = false;
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    window.onload = renderQuiz;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Simplification Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Simplification Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 simplification questions
+    const questionPool = [
+      {
+        question: "Simplify: 12 + 15 ÷ 3",
+        options: [
+          "9",
+          "17",
+          "7",
+          "27"
+        ],
+        answer: "17",
+        explanation: "Division comes first: 15 ÷ 3 = 5; then 12 + 5 = 17."
+      },
+      {
+        question: "Simplify: (8 × 4) ÷ 2 + 3",
+        options: [
+          "19",
+          "20",
+          "18",
+          "23"
+        ],
+        answer: "19",
+        explanation: "8 × 4 = 32; 32 ÷ 2 = 16; 16 + 3 = 19."
+      },
+      {
+        question: "Simplify: 3² + 4²",
+        options: [
+          "25",
+          "12",
+          "7",
+          "24"
+        ],
+        answer: "25",
+        explanation: "3² = 9; 4² = 16; 9 + 16 = 25."
+      },
+      {
+        question: "Simplify: 100 - (25 × 3)",
+        options: [
+          "25",
+          "75",
+          "50",
+          "40"
+        ],
+        answer: "25",
+        explanation: "25 × 3 = 75; 100 - 75 = 25."
+      },
+      {
+        question: "Simplify: 45 ÷ (3 + 2)",
+        options: [
+          "9",
+          "12",
+          "11",
+          "15"
+        ],
+        answer: "9",
+        explanation: "3 + 2 = 5; 45 ÷ 5 = 9."
+      },
+      {
+        question: "Simplify: 7 + 6 × 2",
+        options: [
+          "26",
+          "19",
+          "20",
+          "15"
+        ],
+        answer: "19",
+        explanation: "Multiply first: 6 × 2 = 12; then 7 + 12 = 19."
+      },
+      {
+        question: "Simplify: (2 + 3) × (5 - 2)",
+        options: [
+          "15",
+          "9",
+          "10",
+          "7"
+        ],
+        answer: "15",
+        explanation: "2+3=5; 5-2=3; then 5 × 3 = 15."
+      },
+      {
+        question: "Simplify: 50% of 80",
+        options: [
+          "30",
+          "40",
+          "50",
+          "60"
+        ],
+        answer: "40",
+        explanation: "50% of 80 = 0.5 × 80 = 40."
+      },
+      {
+        question: "Simplify: 3/4 + 1/2",
+        options: [
+          "5/4",
+          "7/4",
+          "1",
+          "1/4"
+        ],
+        answer: "5/4",
+        explanation: "Convert 1/2 to 2/4; 3/4 + 2/4 = 5/4."
+      },
+      {
+        question: "Simplify: 2(3 + 4) - 5",
+        options: [
+          "9",
+          "13",
+          "14",
+          "8"
+        ],
+        answer: "9",
+        explanation: "3+4=7; 2×7=14; 14-5=9."
+      },
+      {
+        question: "Simplify: 81 ÷ 9 × 3",
+        options: [
+          "27",
+          "30",
+          "24",
+          "36"
+        ],
+        answer: "27",
+        explanation: "81 ÷ 9 = 9; 9 × 3 = 27."
+      },
+      {
+        question: "Simplify: (16 ÷ 4) + (3 × 2)",
+        options: [
+          "14",
+          "12",
+          "10",
+          "8"
+        ],
+        answer: "14",
+        explanation: "16 ÷ 4 = 4; 3 × 2 = 6; 4 + 6 = 10."
+      },
+      {
+        question: "Simplify: 5³ - 10",
+        options: [
+          "115",
+          "125",
+          "135",
+          "150"
+        ],
+        answer: "115",
+        explanation: "5³ = 125; 125 - 10 = 115."
+      },
+      {
+        question: "Simplify: 4 + 18 ÷ 3 - 2",
+        options: [
+          "8",
+          "10",
+          "12",
+          "6"
+        ],
+        answer: "8",
+        explanation: "18 ÷ 3 = 6; 4 + 6 = 10; 10 - 2 = 8."
+      },
+      {
+        question: "Simplify: (9 - 3) × (8 ÷ 4)",
+        options: [
+          "12",
+          "8",
+          "6",
+          "10"
+        ],
+        answer: "12",
+        explanation: "9 - 3 = 6; 8 ÷ 4 = 2; 6 × 2 = 12."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    function getRandomQuestions(pool, n) {
+      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Simplification Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

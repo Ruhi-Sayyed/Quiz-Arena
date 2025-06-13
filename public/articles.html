@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Articles Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Articles Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 article-related questions
+    const questionPool = [
+      {
+        question: "Choose the correct article: ___ apple a day keeps the doctor away.",
+        options: ["A", "An", "The", "No article"],
+        answer: "An",
+        explanation: "Use 'An' before words starting with a vowel sound."
+      },
+      {
+        question: "Choose the correct article: I saw ___ elephant at the zoo.",
+        options: ["A", "An", "The", "No article"],
+        answer: "An",
+        explanation: "'Elephant' starts with a vowel sound, so use 'An'."
+      },
+      {
+        question: "Choose the correct article: He is ___ honest man.",
+        options: ["A", "An", "The", "No article"],
+        answer: "An",
+        explanation: "'Honest' starts with a silent 'h' and a vowel sound, so use 'An'."
+      },
+      {
+        question: "Choose the correct article: She wants to buy ___ house on the hill.",
+        options: ["A", "An", "The", "No article"],
+        answer: "A",
+        explanation: "Use 'A' before words starting with a consonant sound."
+      },
+      {
+        question: "Choose the correct article: ___ sun rises in the east.",
+        options: ["A", "An", "The", "No article"],
+        answer: "The",
+        explanation: "Use 'The' before unique objects like 'sun'."
+      },
+      {
+        question: "Choose the correct article: I need ___ umbrella.",
+        options: ["A", "An", "The", "No article"],
+        answer: "An",
+        explanation: "'Umbrella' starts with a vowel sound, so use 'An'."
+      },
+      {
+        question: "Choose the correct article: ___ university is located downtown.",
+        options: ["A", "An", "The", "No article"],
+        answer: "A",
+        explanation: "'University' starts with a consonant sound (pronounced 'yu'), so use 'A'."
+      },
+      {
+        question: "Choose the correct article: They live in ___ old house.",
+        options: ["A", "An", "The", "No article"],
+        answer: "An",
+        explanation: "'Old' starts with a vowel sound, so use 'An'."
+      },
+      {
+        question: "Choose the correct article: She is reading ___ book you gave her.",
+        options: ["A", "An", "The", "No article"],
+        answer: "The",
+        explanation: "'The' is used because the book is specific."
+      },
+      {
+        question: "Choose the correct article: He has ___ idea.",
+        options: ["A", "An", "The", "No article"],
+        answer: "An",
+        explanation: "'Idea' starts with a vowel sound, so use 'An'."
+      },
+      {
+        question: "Choose the correct article: I have ___ dog and ___ cat.",
+        options: ["A and a", "An and an", "A and an", "The and the"],
+        answer: "A and a",
+        explanation: "'Dog' and 'cat' both start with consonant sounds, so use 'A'."
+      },
+      {
+        question: "Choose the correct article: She bought ___ orange and ___ apple.",
+        options: ["A and a", "An and an", "A and an", "The and the"],
+        answer: "An and an",
+        explanation: "'Orange' and 'apple' start with vowel sounds, so use 'An'."
+      },
+      {
+        question: "Choose the correct article: ___ moon was shining brightly.",
+        options: ["A", "An", "The", "No article"],
+        answer: "The",
+        explanation: "'The' is used before unique things like 'moon'."
+      },
+      {
+        question: "Choose the correct article: She has ___ MBA degree.",
+        options: ["A", "An", "The", "No article"],
+        answer: "An",
+        explanation: "MBA starts with a vowel sound ('em'), so use 'An'."
+      },
+      {
+        question: "Choose the correct article: ___ honesty is the best policy.",
+        options: ["A", "An", "The", "No article"],
+        answer: "Honesty is an uncountable noun, so usually no article is needed here (No article).",
+        explanation: "With abstract uncountable nouns like 'honesty', no article is generally used."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    // Utility function to get N unique random questions
+    function getRandomQuestions(pool, n) {
+      const shuffled = pool.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);  // Show 6 questions only
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Articles Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    // Load quiz on page load
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

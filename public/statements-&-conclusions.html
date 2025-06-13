@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Statements and Conclusions Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Statements and Conclusions Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 statements and conclusions problems
+    const questionPool = [
+      {
+        question: `Statement: All cats are animals. Some animals are wild.<br>
+                   Conclusion I: Some cats are wild.<br>
+                   Conclusion II: All animals are cats.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion I follows",
+        explanation: "Since some animals are wild and all cats are animals, some cats can be wild. Conclusion II is incorrect because not all animals are cats."
+      },
+      {
+        question: `Statement: No pencils are pens. Some pens are markers.<br>
+                   Conclusion I: Some pencils are markers.<br>
+                   Conclusion II: No pens are pencils.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion II follows",
+        explanation: "Statement says no pencils are pens, so conclusion II follows. Conclusion I cannot be concluded."
+      },
+      {
+        question: `Statement: All fruits are sweet. Mango is a fruit.<br>
+                   Conclusion I: Mango is sweet.<br>
+                   Conclusion II: All sweet things are fruits.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion I follows",
+        explanation: "Since all fruits are sweet and mango is a fruit, mango is sweet. Conclusion II is not necessarily true."
+      },
+      {
+        question: `Statement: Some flowers are red. All roses are flowers.<br>
+                   Conclusion I: Some roses are red.<br>
+                   Conclusion II: All flowers are roses.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Neither follows",
+        explanation: "Some flowers are red, but that doesn't guarantee any rose is red. Also, not all flowers are roses."
+      },
+      {
+        question: `Statement: No cars are bikes. Some bikes are scooters.<br>
+                   Conclusion I: No cars are scooters.<br>
+                   Conclusion II: Some scooters are bikes.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion II follows",
+        explanation: "Some scooters are bikes is directly given. No cars are scooters cannot be concluded."
+      },
+      {
+        question: `Statement: All birds can fly. Ostrich is a bird.<br>
+                   Conclusion I: Ostrich can fly.<br>
+                   Conclusion II: All things that can fly are birds.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion I follows",
+        explanation: "According to the statement, all birds can fly so ostrich can fly (even though in real life it cannot). Conclusion II is not correct."
+      },
+      {
+        question: `Statement: Some boys are tall. All tall people are smart.<br>
+                   Conclusion I: Some boys are smart.<br>
+                   Conclusion II: All boys are smart.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion I follows",
+        explanation: "Since some boys are tall and all tall people are smart, some boys are smart. Not all boys are smart."
+      },
+      {
+        question: `Statement: No apples are oranges. Some oranges are sweet.<br>
+                   Conclusion I: Some apples are sweet.<br>
+                   Conclusion II: No apples are oranges.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion II follows",
+        explanation: "Statement says no apples are oranges, so conclusion II follows. Nothing about apples being sweet can be concluded."
+      },
+      {
+        question: `Statement: All doctors are educated. Some educated people are rich.<br>
+                   Conclusion I: Some doctors are rich.<br>
+                   Conclusion II: All rich people are educated.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Neither follows",
+        explanation: "Some educated people are rich, but this doesn't guarantee doctors are rich or all rich people are educated."
+      },
+      {
+        question: `Statement: Some students are hardworking. All hardworking people are successful.<br>
+                   Conclusion I: Some students are successful.<br>
+                   Conclusion II: All students are successful.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion I follows",
+        explanation: "Since some students are hardworking and all hardworking people are successful, some students are successful. Not all students are successful."
+      },
+      {
+        question: `Statement: All pens are blue. Some blue things are expensive.<br>
+                   Conclusion I: Some pens are expensive.<br>
+                   Conclusion II: All expensive things are blue.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Neither follows",
+        explanation: "Some blue things are expensive, but this doesn't guarantee pens are expensive or all expensive things are blue."
+      },
+      {
+        question: `Statement: No dogs are cats. Some cats are pets.<br>
+                   Conclusion I: Some dogs are pets.<br>
+                   Conclusion II: No dogs are cats.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion II follows",
+        explanation: "No dogs are cats is directly stated. Nothing can be concluded about dogs being pets."
+      },
+      {
+        question: `Statement: All cars are vehicles. Some vehicles are fast.<br>
+                   Conclusion I: Some cars are fast.<br>
+                   Conclusion II: All fast things are vehicles.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Neither follows",
+        explanation: "Some vehicles are fast, but this doesn't guarantee cars are fast or all fast things are vehicles."
+      },
+      {
+        question: `Statement: Some books are novels. All novels are interesting.<br>
+                   Conclusion I: Some books are interesting.<br>
+                   Conclusion II: All interesting things are novels.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Only conclusion I follows",
+        explanation: "Since some books are novels and all novels are interesting, some books are interesting. Conclusion II is not true."
+      },
+      {
+        question: `Statement: All mobiles are gadgets. Some gadgets are expensive.<br>
+                   Conclusion I: Some mobiles are expensive.<br>
+                   Conclusion II: All expensive things are gadgets.`,
+        options: ["Only conclusion I follows", "Only conclusion II follows", "Both follow", "Neither follows"],
+        answer: "Neither follows",
+        explanation: "Some gadgets are expensive, but no direct relation about mobiles being expensive or all expensive things being gadgets."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    function getRandomQuestions(pool, n) {
+      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Statements and Conclusions Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

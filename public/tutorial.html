@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Categories</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    
+    :root {
+      --bg-gradient: linear-gradient(to right, #f0f4ff, #dbe7ff);
+      --card-bg: #ffffff;
+      --quiz-bg: #fef6e4;
+      --text: #2c3e50;
+      --accent: #0077cc;
+      --highlight-border: #0077cc;
+      --card-hover: #e8f0fe;
+      --start-btn: #ffffff;
+      --start-btn-hover: #f2f2f2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 20px;
+      box-shadow: var(--box-shadow);
+    }
+
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      color: var(--accent);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid var(--highlight-border);
+    }
+
+    
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      background: var(--card-hover);
+      color: var(--accent);
+    }
+    /* Unique category styles */
+    .programming-cat {
+      background: var(--prog-bg);
+      border-color: var(--prog-border);
+    }
+
+    .programming-cat:hover {
+      color: var(--prog-border);
+    }
+
+    .logical-cat {
+      background: var(--logic-bg);
+      border-color: var(--logic-border);
+    }
+
+    .logical-cat:hover {
+      color: var(--logic-border);
+    }
+
+    .verbal-cat {
+      background: var(--verbal-bg);
+      border-color: var(--verbal-border);
+    }
+
+    .verbal-cat:hover {
+      color: var(--verbal-border);
+    }
+
+    .quantitative-cat {
+      background: var(--quant-bg);
+      border-color: var(--quant-border);
+    }
+
+    .quantitative-cat:hover {
+      color: var(--quant-border);
+    }
+
+    
+    .top-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    
+     .search-input {
+      width: 70%;
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 2px solid #ccc;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+    
+    @media (max-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-input {
+        width: 100%;
+      }
+
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <input type="text" id="search" class="search-input" placeholder="Search..." />
+    </div>
+    <h1 id="page-title">Choose a Category</h1>
+    <div class="card-grid" id="gridContainer"></div>
+  </div>
+
+  <script>
+    const categoryLinks = {
+      "Programming Languages": "programming.html",
+      "Logical Reasoning": "logical.html",
+      "Verbal Reasoning": "verbal.html",
+      "Quantitative Aptitude": "quantitative.html"
+    };
+
+    const categoryClasses = {
+      "Programming Languages": "programming-cat",
+      "Logical Reasoning": "logical-cat",
+      "Verbal Reasoning": "verbal-cat",
+      "Quantitative Aptitude": "quantitative-cat"
+    };
+
+    const gridContainer = document.getElementById('gridContainer');
+    const searchInput = document.getElementById('search');
+
+    function showCategories() {
+      gridContainer.innerHTML = "";
+      Object.keys(categoryLinks).forEach(cat => {
+        const card = document.createElement('div');
+        card.className = `card ${categoryClasses[cat]}`;
+        card.textContent = cat;
+        card.onclick = () => window.location.href = categoryLinks[cat];
+        gridContainer.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.toLowerCase();
+      [...gridContainer.children].forEach(card => {
+        card.style.display = card.textContent.toLowerCase().includes(term) ? '' : 'none';
+      });
+    });
+
+    showCategories();
+  </script>
+</body>
+</html>

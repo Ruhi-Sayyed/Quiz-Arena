@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Synonyms & Antonyms Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Synonyms & Antonyms Quiz</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Synonyms & Antonyms question pool
+    const questionPool = [
+      {
+        question: "What is a synonym of 'Happy'?",
+        options: ["Sad", "Joyful", "Angry"],
+        answer: "Joyful",
+        explanation: "'Joyful' is a synonym of 'Happy'."
+      },
+      {
+        question: "What is an antonym of 'Big'?",
+        options: ["Large", "Tiny", "Huge"],
+        answer: "Tiny",
+        explanation: "'Tiny' is an antonym of 'Big'."
+      },
+      {
+        question: "Choose the synonym of 'Quick'.",
+        options: ["Slow", "Fast", "Late"],
+        answer: "Fast",
+        explanation: "'Fast' means quick."
+      },
+      {
+        question: "Select the antonym of 'Bright'.",
+        options: ["Shiny", "Dull", "Glowing"],
+        answer: "Dull",
+        explanation: "'Dull' is the opposite of 'Bright'."
+      },
+      {
+        question: "What is a synonym for 'Begin'?",
+        options: ["Start", "End", "Finish"],
+        answer: "Start",
+        explanation: "'Start' means to begin."
+      },
+      {
+        question: "What is an antonym of 'Strong'?",
+        options: ["Weak", "Powerful", "Mighty"],
+        answer: "Weak",
+        explanation: "'Weak' is the opposite of 'Strong'."
+      },
+      {
+        question: "Choose the synonym of 'Angry'.",
+        options: ["Happy", "Mad", "Calm"],
+        answer: "Mad",
+        explanation: "'Mad' means angry."
+      },
+      {
+        question: "Select the antonym of 'Clean'.",
+        options: ["Dirty", "Neat", "Tidy"],
+        answer: "Dirty",
+        explanation: "'Dirty' is the opposite of 'Clean'."
+      },
+      {
+        question: "What is a synonym for 'Large'?",
+        options: ["Huge", "Small", "Tiny"],
+        answer: "Huge",
+        explanation: "'Huge' is a synonym of 'Large'."
+      },
+      {
+        question: "What is an antonym of 'Light' (weight)?",
+        options: ["Heavy", "Thin", "Bright"],
+        answer: "Heavy",
+        explanation: "'Heavy' is the opposite of 'Light' (weight)."
+      },
+      {
+        question: "Choose the synonym of 'Smart'.",
+        options: ["Intelligent", "Dumb", "Slow"],
+        answer: "Intelligent",
+        explanation: "'Intelligent' means smart."
+      },
+      {
+        question: "Select the antonym of 'Early'.",
+        options: ["Late", "Soon", "Fast"],
+        answer: "Late",
+        explanation: "'Late' is the opposite of 'Early'."
+      },
+      {
+        question: "What is a synonym for 'Funny'?",
+        options: ["Serious", "Humorous", "Boring"],
+        answer: "Humorous",
+        explanation: "'Humorous' means funny."
+      },
+      {
+        question: "What is an antonym of 'Soft'?",
+        options: ["Hard", "Smooth", "Light"],
+        answer: "Hard",
+        explanation: "'Hard' is the opposite of 'Soft'."
+      },
+      {
+        question: "Choose the synonym of 'Calm'.",
+        options: ["Angry", "Peaceful", "Nervous"],
+        answer: "Peaceful",
+        explanation: "'Peaceful' means calm."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    // Utility function to get N unique random questions
+    function getRandomQuestions(pool, n) {
+      const shuffled = pool.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);  // Show 6 questions only
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Synonyms & Antonyms Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      // Disable submit button after submission
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    // Load quiz on page load
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

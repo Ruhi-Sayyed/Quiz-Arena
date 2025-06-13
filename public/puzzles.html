@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Puzzle Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Puzzle Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 puzzle questions
+    const questionPool = [
+      {
+        question: `I speak without a mouth and hear without ears. I have nobody, but I come alive with wind. What am I?`,
+        options: ["Echo", "Shadow", "Fire", "Cloud"],
+        answer: "Echo",
+        explanation: "An echo is a sound that is reflected and heard again, with no physical body."
+      },
+      {
+        question: `What has keys but can't open locks?`,
+        options: ["Piano", "Map", "Car", "Book"],
+        answer: "Piano",
+        explanation: "A piano has keys but they don’t open locks."
+      },
+      {
+        question: `What can travel around the world while staying in the same spot?`,
+        options: ["Stamp", "Sun", "Moon", "Wind"],
+        answer: "Stamp",
+        explanation: "A postage stamp stays on an envelope while it travels around the world."
+      },
+      {
+        question: `What has hands but cannot clap?`,
+        options: ["Clock", "Robot", "Tree", "Fan"],
+        answer: "Clock",
+        explanation: "A clock has hands to show time but cannot clap."
+      },
+      {
+        question: `The more you take, the more you leave behind. What are they?`,
+        options: ["Footsteps", "Memories", "Breaths", "Time"],
+        answer: "Footsteps",
+        explanation: "Every step you take leaves behind a footprint."
+      },
+      {
+        question: `What has a head, a tail, is brown, and has no legs?`,
+        options: ["Coin", "Snake", "Dog", "Shoe"],
+        answer: "Coin",
+        explanation: "A coin has a head and tail side but no legs."
+      },
+      {
+        question: `What can fill a room but takes up no space?`,
+        options: ["Light", "Sound", "Air", "Heat"],
+        answer: "Light",
+        explanation: "Light fills a room but has no physical volume."
+      },
+      {
+        question: `What begins with T, ends with T, and has T in it?`,
+        options: ["Teapot", "Tent", "Test", "Toast"],
+        answer: "Teapot",
+        explanation: "The word 'teapot' begins and ends with 'T' and contains tea."
+      },
+      {
+        question: `I’m tall when I’m young, and I’m short when I’m old. What am I?`,
+        options: ["Candle", "Tree", "Pencil", "Mountain"],
+        answer: "Candle",
+        explanation: "A candle burns down and gets shorter as it ages."
+      },
+      {
+        question: `What can you catch but not throw?`,
+        options: ["Cold", "Ball", "Frisbee", "Balloon"],
+        answer: "Cold",
+        explanation: "You can catch a cold but cannot physically throw it."
+      },
+      {
+        question: `What has one eye but can’t see?`,
+        options: ["Needle", "Cyclops", "Storm", "Button"],
+        answer: "Needle",
+        explanation: "A needle has an 'eye' (hole) but does not see."
+      },
+      {
+        question: `I’m found in socks, scarves and mittens; and often in the paws of playful kittens. What am I?`,
+        options: ["Yarn", "Cotton", "Wool", "Thread"],
+        answer: "Yarn",
+        explanation: "Yarn is used in making socks and kittens love playing with it."
+      },
+      {
+        question: `What has many teeth but can’t bite?`,
+        options: ["Comb", "Shark", "Saw", "Zipper"],
+        answer: "Comb",
+        explanation: "A comb has teeth but doesn’t bite."
+      },
+      {
+        question: `What comes once in a minute, twice in a moment, but never in a thousand years?`,
+        options: ["Letter M", "Time", "Chance", "Sun"],
+        answer: "Letter M",
+        explanation: "The letter M appears once in 'minute', twice in 'moment', and not at all in 'thousand years'."
+      },
+      {
+        question: `If you drop me I’m sure to crack, but give me a smile and I’ll always smile back. What am I?`,
+        options: ["Mirror", "Egg", "Glass", "Plate"],
+        answer: "Mirror",
+        explanation: "A mirror cracks if dropped and reflects your smile."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    function getRandomQuestions(pool, n) {
+      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+      submitBtn.disabled = false;
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Puzzle Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        @charset "utf-8";
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        @font-face {
+            font-family: Gotu;
+            src: url(../font/Gotu-Regular.ttf);
+        }
+        @font-face {
+            font-family: Muli;
+            src: url(../font/Muli-VariableFont_wght.ttf);
+        }
+        body {
+            width: 100%;
+            height: 100vh;
+            font-family: Gotu, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('/images/bg1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background 0.5s ease;
+
+            font-family:Baskerville Old Face, sans-serif;
+        }
+        .register-box {
+            width: 400px;
+            min-height: 650px; /* Adjusted height */
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .register-box h1 {
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #333;
+        }
+        .register-box input[type="text"],
+        .register-box input[type="email"],
+        .register-box input[type="password"],
+        .register-box input[type="tel"] {
+            width: 100%;
+            padding: 13px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            font-size: 16px;
+            font-family: Gotu, sans-serif;
+            transition: all 0.3s ease;
+
+            font-family:Baskerville Old Face, sans-serif;
+        }
+        .register-box input[type="text"]:focus,
+        .register-box input[type="email"]:focus,
+        .register-box input[type="password"]:focus,
+        .register-box input[type="tel"]:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .register-box button {
+            width: 100%;
+            padding: 10px;
+            background-color: transparent;
+            border: 2px solid #00A376;
+            color: #00A376;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            
+            
+
+            font-family:Baskerville Old Face, sans-serif;
+        }
+        .register-box button:hover {
+            background-color: #00A376;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px #00A376;
+        }
+        .register-box button:active {
+            background-color: #00A376;
+            color: white;
+            transform: scale(1);
+        }
+        .register-box a {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .register-box a:hover {
+            color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            margin-top: 15px;
+        }
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <h1>Create your account</h1>
+        <form action="/RegisterData" method="POST">
+            <input type="text" name="fname" placeholder="First Name" required>
+            <input type="text" name="lname" placeholder="Last Name" required>
+            <input type="email" name="email" placeholder="E-Mail" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            <input type="password" name="pass" placeholder="Password" required>
+        </br>
+           
+    </br>
+</br>
+    <h3><button type="submit">Register</button></h3>
+</br>
+        </form>
+        <a href="/Login">Already have an account? Login here</a>
+        <p class="error-message">
+            <!-- Display error message if available -->
+            <script>
+                const urlParams = new URLSearchParams(window.location.search);
+                const errorMessage = urlParams.get('errorMessage');
+                if (errorMessage) {
+                    document.write(errorMessage);
+                }
+            </script>
+        </p>
+    </div>
+</body>
+</html>

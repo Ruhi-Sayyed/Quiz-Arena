@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Percentage Problems Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Percentage Problems Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 percentage problems
+    const questionPool = [
+      {
+        question: "What is 20% of 150?",
+        options: ["25", "30", "20", "35"],
+        answer: "30",
+        explanation: "20% of 150 = 0.20 × 150 = 30."
+      },
+      {
+        question: "If you get 45 out of 60, what is your percentage score?",
+        options: ["70%", "75%", "80%", "65%"],
+        answer: "75%",
+        explanation: "Percentage = (45 ÷ 60) × 100 = 75%."
+      },
+      {
+        question: "Increase 120 by 10%. What is the result?",
+        options: ["132", "130", "142", "120"],
+        answer: "132",
+        explanation: "10% of 120 = 12; 120 + 12 = 132."
+      },
+      {
+        question: "Decrease 200 by 15%. What is the new value?",
+        options: ["170", "180", "185", "160"],
+        answer: "170",
+        explanation: "15% of 200 = 30; 200 - 30 = 170."
+      },
+      {
+        question: "What is 150% of 80?",
+        options: ["120", "100", "130", "140"],
+        answer: "120",
+        explanation: "150% of 80 = 1.5 × 80 = 120."
+      },
+      {
+        question: "If the price is increased from 50 to 60, what is the percentage increase?",
+        options: ["20%", "15%", "25%", "10%"],
+        answer: "20%",
+        explanation: "Increase = 60 - 50 = 10; Percentage increase = (10 ÷ 50) × 100 = 20%."
+      },
+      {
+        question: "If 30% of a number is 45, what is the number?",
+        options: ["135", "150", "140", "145"],
+        answer: "150",
+        explanation: "Let number = x; 30% of x = 45 → 0.30x = 45 → x = 150."
+      },
+      {
+        question: "A dress originally costs ₹800. It is sold at 25% discount. What is the selling price?",
+        options: ["600", "650", "700", "625"],
+        answer: "600",
+        explanation: "25% of 800 = 200; Selling price = 800 - 200 = 600."
+      },
+      {
+        question: "What is 12.5% of 400?",
+        options: ["50", "40", "45", "60"],
+        answer: "50",
+        explanation: "12.5% of 400 = (12.5 ÷ 100) × 400 = 50."
+      },
+      {
+        question: "If a quantity increases from 40 to 50, what is the percentage increase?",
+        options: ["20%", "25%", "30%", "15%"],
+        answer: "25%",
+        explanation: "Increase = 10; Percentage increase = (10 ÷ 40) × 100 = 25%."
+      },
+      {
+        question: "If the price of an item is reduced from ₹500 to ₹425, what is the percentage decrease?",
+        options: ["15%", "12.5%", "10%", "20%"],
+        answer: "15%",
+        explanation: "Decrease = 75; Percentage decrease = (75 ÷ 500) × 100 = 15%."
+      },
+      {
+        question: "What is 5% of 360?",
+        options: ["18", "16", "15", "20"],
+        answer: "18",
+        explanation: "5% of 360 = 0.05 × 360 = 18."
+      },
+      {
+        question: "A shopkeeper gives 10% profit on cost price of ₹500. What is the selling price?",
+        options: ["550", "600", "520", "530"],
+        answer: "550",
+        explanation: "Profit = 10% of 500 = 50; Selling price = 500 + 50 = 550."
+      },
+      {
+        question: "If the population of a town increases by 8% in a year, what will be the new population if original is 25,000?",
+        options: ["27,000", "26,000", "27,500", "28,000"],
+        answer: "27,000",
+        explanation: "Increase = 8% of 25,000 = 2,000; New population = 25,000 + 2,000 = 27,000."
+      },
+      {
+        question: "What is 125% of 96?",
+        options: ["120", "115", "130", "125"],
+        answer: "120",
+        explanation: "125% of 96 = 1.25 × 96 = 120."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    function getRandomQuestions(pool, n) {
+      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Percentage Problems Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

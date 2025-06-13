@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Basic JavaScript Quiz For Beginners</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Basic JavaScript Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of JavaScript-related questions
+    const questionPool = [
+      {
+        question: "What does `console.log()` do in JavaScript?",
+        options: ["Prints output to the console", "Adds a number to a variable", "Logs user input"],
+        answer: "Prints output to the console",
+        explanation: "`console.log()` is used to print output or information to the browser's console."
+      },
+      {
+        question: "Which symbol is used for comments in JavaScript?",
+        options: ["//", "#", "/* */"],
+        answer: "//",
+        explanation: "In JavaScript, single-line comments are written using //."
+      },
+      {
+        question: "How do you create a variable in JavaScript?",
+        options: ["var x = 10;", "let x = 10;", "Both"],
+        answer: "Both",
+        explanation: "In JavaScript, variables can be declared using `var`, `let`, or `const`."
+      },
+      {
+        question: "What is the correct way to declare a function in JavaScript?",
+        options: ["function myFunction()", "function:myFunction()", "def myFunction()"],
+        answer: "function myFunction()",
+        explanation: "In JavaScript, functions are declared using the `function` keyword."
+      },
+      {
+        question: "Which of these is used to include external JavaScript in an HTML file?",
+        options: ["&lt;script src='script.js'&gt;&lt;/script&gt;", "&lt;link href='script.js'/&gt;", "&lt;style src='script.js'&gt;&lt;/style&gt;"],
+        answer: "&lt;script src='script.js'&gt;&lt;/script&gt;",
+        explanation: "External JavaScript files are included in HTML using the <script> tag with the 'src' attribute."
+      },
+      {
+        question: "What is the output of `typeof(42)` in JavaScript?",
+        options: ["number", "string", "undefined"],
+        answer: "number",
+        explanation: "`typeof` returns the data type of a variable or value. `42` is a number."
+      },
+      {
+        question: "Which method is used to convert a string to a number in JavaScript?",
+        options: ["parseInt()", "toString()", "Number()"],
+        answer: "parseInt()",
+        explanation: "The `parseInt()` method is used to convert a string to an integer."
+      },
+      {
+        question: "What will be the output of `3 + '4'` in JavaScript?",
+        options: ["34", "7", "undefined"],
+        answer: "34",
+        explanation: "When a number is added to a string, JavaScript performs string concatenation, resulting in '34'."
+      },
+      {
+        question: "What is a closure in JavaScript?",
+        options: ["A function inside another function", "A function with no return value", "A function that returns a promise"],
+        answer: "A function inside another function",
+        explanation: "A closure is a function that 'remembers' its outer function's scope even after the outer function has finished executing."
+      },
+      {
+        question: "Which of these is NOT a valid JavaScript data type?",
+        options: ["integer", "boolean", "null"],
+        answer: "integer",
+        explanation: "In JavaScript, the correct data type is `number`, not `integer`."
+      },
+      {
+        question: "How can you create an array in JavaScript?",
+        options: ["var arr = [];", "var arr = {};","var arr = ()"],
+        answer: "var arr = [];",
+        explanation: "Arrays are created using square brackets [] in JavaScript."
+      },
+      {
+        question: "What does `NaN` stand for in JavaScript?",
+        options: ["Not a Number", "No a Number", "Not a Name"],
+        answer: "Not a Number",
+        explanation: "`NaN` stands for 'Not a Number' and is returned when a value is not a valid number."
+      },
+      {
+        question: "Which method is used to find the length of a string in JavaScript?",
+        options: [".length()", ".size()", ".count()"],
+        answer: ".length()",
+        explanation: "The `.length` property is used to find the number of characters in a string."
+      },
+      {
+        question: "What is the default value of a JavaScript variable that is declared but not initialized?",
+        options: ["undefined", "null", "0"],
+        answer: "undefined",
+        explanation: "Variables declared but not initialized have the default value `undefined`."
+      },
+      {
+        question: "What is the output of `console.log(3 == '3')` in JavaScript?",
+        options: ["true", "false", "undefined"],
+        answer: "true",
+        explanation: "In JavaScript, the `==` operator performs type coercion, so '3' is converted to 3 and the comparison returns `true`."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    // Utility function to get N unique random questions
+    function getRandomQuestions(pool, n) {
+      const shuffled = pool.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);  // Show 6 questions only
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Basic JavaScript Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Simple Interest Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Simple Interest Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 Simple Interest questions
+    const questionPool = [
+      {
+        question: "What is the simple interest on $1000 at 5% per annum for 3 years?",
+        options: [
+          "$150",
+          "$100",
+          "$200",
+          "$250"
+        ],
+        answer: "$150",
+        explanation: "SI = (P × R × T) / 100 = (1000 × 5 × 3) / 100 = $150."
+      },
+      {
+        question: "If the simple interest on a sum for 2 years at 6% per annum is $120, what is the principal amount?",
+        options: [
+          "$1000",
+          "$900",
+          "$800",
+          "$1100"
+        ],
+        answer: "$1000",
+        explanation: "SI = (P × R × T)/100 → 120 = (P × 6 × 2)/100 → P = 1000."
+      },
+      {
+        question: "Find the rate of interest if $180 is the simple interest on $1200 for 3 years.",
+        options: [
+          "5%",
+          "6%",
+          "4%",
+          "7%"
+        ],
+        answer: "5%",
+        explanation: "SI = (P × R × T)/100 → 180 = (1200 × R × 3)/100 → R=5%."
+      },
+      {
+        question: "What is the amount after 4 years if the principal is $500 at 8% simple interest?",
+        options: [
+          "$660",
+          "$640",
+          "$600",
+          "$680"
+        ],
+        answer: "$660",
+        explanation: "SI = (500 × 8 × 4)/100 = $160, Amount = 500 + 160 = $660."
+      },
+      {
+        question: "If the amount after 3 years is $1150 and the principal is $1000, what is the simple interest rate?",
+        options: [
+          "5%",
+          "4%",
+          "6%",
+          "7%"
+        ],
+        answer: "5%",
+        explanation: "SI = 1150 - 1000 = 150, SI = (P × R × T)/100 → 150 = (1000 × R × 3)/100 → R=5%."
+      },
+      {
+        question: "What principal amount will yield $240 as simple interest at 6% rate in 5 years?",
+        options: [
+          "$800",
+          "$900",
+          "$700",
+          "$750"
+        ],
+        answer: "$800",
+        explanation: "SI = (P × R × T)/100 → 240 = (P × 6 × 5)/100 → P = 800."
+      },
+      {
+        question: "How long will it take for a sum of $2000 to earn $600 as simple interest at 5% per annum?",
+        options: [
+          "6 years",
+          "5 years",
+          "7 years",
+          "8 years"
+        ],
+        answer: "6 years",
+        explanation: "SI = (P × R × T)/100 → 600 = (2000 × 5 × T)/100 → T=6 years."
+      },
+      {
+        question: "Find the simple interest on $1500 for 2.5 years at 4% per annum.",
+        options: [
+          "$150",
+          "$140",
+          "$130",
+          "$160"
+        ],
+        answer: "$150",
+        explanation: "SI = (1500 × 4 × 2.5)/100 = $150."
+      },
+      {
+        question: "If the rate of interest is 10% per annum, what is the interest on $2500 for 1 year 6 months?",
+        options: [
+          "$375",
+          "$350",
+          "$300",
+          "$400"
+        ],
+        answer: "$375",
+        explanation: "Time = 1.5 years, SI = (2500 × 10 × 1.5)/100 = $375."
+      },
+      {
+        question: "A sum of $800 is lent out at 7.5% simple interest. What is the amount received after 4 years?",
+        options: [
+          "$1040",
+          "$1080",
+          "$1120",
+          "$1100"
+        ],
+        answer: "$1040",
+        explanation: "SI = (800 × 7.5 × 4)/100 = 240, Amount = 800 + 240 = 1040."
+      },
+      {
+        question: "What is the simple interest on $600 for 3 years at 9% per annum?",
+        options: [
+          "$162",
+          "$180",
+          "$150",
+          "$170"
+        ],
+        answer: "$162",
+        explanation: "SI = (600 × 9 × 3)/100 = $162."
+      },
+      {
+        question: "If $480 is the interest on a principal for 4 years at 8%, what is the principal?",
+        options: [
+          "$1500",
+          "$1400",
+          "$1600",
+          "$1300"
+        ],
+        answer: "$1500",
+        explanation: "SI = (P × R × T)/100 → 480 = (P × 8 × 4)/100 → P=1500."
+      },
+      {
+        question: "Find the rate of interest if the simple interest on $2500 for 3 years is $375.",
+        options: [
+          "5%",
+          "6%",
+          "4%",
+          "7%"
+        ],
+        answer: "5%",
+        explanation: "SI = (P × R × T)/100 → 375 = (2500 × R × 3)/100 → R=5%."
+      },
+      {
+        question: "What is the amount on $900 after 2 years at 7% simple interest?",
+        options: [
+          "$1026",
+          "$1010",
+          "$1030",
+          "$1050"
+        ],
+        answer: "$1026",
+        explanation: "SI = (900 × 7 × 2)/100 = 126, Amount = 900 + 126 = $1026."
+      },
+      {
+        question: "If a sum amounts to $1100 in 2 years at 5% per annum, find the principal.",
+        options: [
+          "$1050",
+          "$1000",
+          "$1020",
+          "$1080"
+        ],
+        answer: "$1000",
+        explanation: "SI = 1100 - 1000 = 100, SI = (P × 5 × 2)/100 → 100 = 10% of P → P=1000."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    function getRandomQuestions(pool, n) {
+      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Simple Interest Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

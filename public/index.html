@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Arena - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #e0c3fc, #8ec5fc);
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .fun-text {
+      font-size: 20px;
+      font-weight: 500;
+      animation: pulse 1.2s infinite alternate;
+      color: #ffd6ff;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.04); }
+    }
+
+    main {
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background-color: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #3a0ca3;
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    .quiz-arena-intro {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .quiz-arena-intro img {
+      max-width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .quiz-arena-intro .description {
+      flex: 1;
+    }
+
+    .quiz-arena-intro .description p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .auth-buttons {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .submit-btn {
+      padding: 14px 35px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(100, 100, 255, 0.3);
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #5b0eaa, #1d5fde);
+      transform: translateY(-2px);
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    textarea:focus,
+    input:focus {
+      border-color: #6a11cb;
+      box-shadow: 0 0 6px rgba(106, 17, 203, 0.4);
+      outline: none;
+    }
+
+    .feedback-list {
+      margin-top: 20px;
+      padding-left: 20px;
+      max-height: 250px;
+      overflow-y: auto;
+      border-top: 1px solid #ccc;
+    }
+
+    .feedback-list li {
+      margin-bottom: 10px;
+      font-style: italic;
+      color: #444;
+    }
+
+    #feedbackMessage {
+      font-weight: 600;
+      font-size: 1.1em;
+      margin-top: 15px;
+      transition: opacity 0.4s ease;
+      color: #4caf50;
+    }
+
+    #feedbackMessage.error {
+      color: #f44336;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><b>Welcome to Quiz Arena</b></h1>
+    <p class="fun-text">Where brain meets fun – are you ready?</p>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="quiz-arena-intro">
+        <img src="/images/quizarena-banner.jpg" alt="Quiz Arena Banner" />
+        <div class="description">
+          <h2>What is Quiz Arena?</h2>
+          <p>
+            <strong>Quiz Arena</strong> is a dynamic and interactive platform designed to help students and enthusiasts practice aptitude, verbal reasoning, and more through engaging quizzes. Whether you're preparing for exams or just sharpening your skills, Quiz Arena gives you a competitive edge with fun, real-time challenges and feedback!
+          </p>
+        </div>
+      </section>
+
+      <div class="auth-buttons">
+        <a href="/tutorial"><button class="submit-btn">Explore</button></a>
+        <a href="/Quiz"><button class="submit-btn">Take a Quiz</button></a>
+      </div>
+
+      <section class="feedback">
+        <h2>Your Feedback</h2>
+        <form action="/feedback" method="POST" id="feedbackForm">
+          <label for="feedback">Tell us what you think about Quiz Arena:</label>
+          <textarea id="feedback" name="feedback" rows="4" required></textarea>
+          <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+        <div id="feedbackMessage" style="display: none;"></div>
+        <div id="feedbackDisplay"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Quiz Arena. All rights reserved.</p>
+  </footer>
+
+  <script>
+    async function loadFeedback() {
+      try {
+        const response = await fetch('/feedbacks');
+        if (!response.ok) throw new Error('Failed to fetch feedback');
+        const feedbacks = await response.json();
+        const displayDiv = document.getElementById('feedbackDisplay');
+        displayDiv.innerHTML = '<h3>What Users Says:</h3>';
+
+        if (feedbacks.length === 0) {
+          displayDiv.innerHTML += '<p>No feedback submitted yet. Be the first!</p>';
+          return;
+        }
+
+        const ul = document.createElement('ul');
+        ul.classList.add('feedback-list');
+
+        feedbacks.forEach(({ feedback, submitted_at }) => {
+          const li = document.createElement('li');
+          const dateStr = submitted_at ? new Date(submitted_at).toLocaleString() : '';
+          li.textContent = dateStr ? `${feedback} (Submitted on: ${dateStr})` : feedback;
+          ul.appendChild(li);
+        });
+
+        displayDiv.appendChild(ul);
+      } catch (error) {
+        console.error('Error loading feedback:', error);
+        document.getElementById('feedbackDisplay').innerHTML = '<p style="color:red;">Could not load feedback. Try again later.</p>';
+      }
+    }
+
+    const feedbackMessage = document.getElementById('feedbackMessage');
+
+    function showMessage(message, isError = false) {
+      feedbackMessage.textContent = message;
+      feedbackMessage.classList.toggle('error', isError);
+      feedbackMessage.style.display = 'block';
+      feedbackMessage.style.opacity = '1';
+
+      setTimeout(() => {
+        feedbackMessage.style.opacity = '0';
+        setTimeout(() => {
+          feedbackMessage.style.display = 'none';
+        }, 500);
+      }, 3000);
+    }
+
+    document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const feedbackInput = document.getElementById('feedback');
+      const feedback = feedbackInput.value.trim();
+      if (!feedback) {
+        showMessage('Feedback cannot be empty.', true);
+        return;
+      }
+
+      try {
+        const res = await fetch('/feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ feedback })
+        });
+
+        if (!res.ok) throw new Error('Failed to submit feedback');
+
+        feedbackInput.value = '';
+        await loadFeedback();
+        showMessage('Thank you for your feedback!');
+      } catch (err) {
+        showMessage('Error submitting feedback. Please try again.', true);
+        console.error(err);
+      }
+    });
+
+    loadFeedback();
+  </script>
+</body>
+</html>

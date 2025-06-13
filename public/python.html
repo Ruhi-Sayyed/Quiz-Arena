@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Python Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Basic Python Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 Python-related questions
+    const questionPool = [
+      {
+        question: "What is the output of print(type('Hello'))?",
+        options: ["str", "int", "list"],
+        answer: "str",
+        explanation: "The type function returns 'str' for a string."
+      },
+      {
+        question: "Which keyword is used to define a function in Python?",
+        options: ["def", "function", "define"],
+        answer: "def",
+        explanation: "The def keyword is used to declare a function."
+      },
+      {
+        question: "How do you start a comment in Python?",
+        options: ["#", "//", "/*"],
+        answer: "#",
+        explanation: "Python uses the hash symbol for single-line comments."
+      },
+      {
+        question: "What is the correct file extension for Python files?",
+        options: [".py", ".pt", ".pyt"],
+        answer: ".py",
+        explanation: "Python files end with .py extension."
+      },
+      {
+        question: "Which data type is used to store multiple items in a single variable?",
+        options: ["list", "int", "bool"],
+        answer: "list",
+        explanation: "list is a built-in data type for collections."
+      },
+      {
+        question: "What is the correct way to create a variable with value 5?",
+        options: ["x = 5", "int x = 5", "x := 5"],
+        answer: "x = 5",
+        explanation: "Python uses simple assignment like x = 5."
+      },
+      {
+        question: "Which operator is used for exponentiation?",
+        options: ["**", "^", "^^"],
+        answer: "**",
+        explanation: "** is the operator for power (exponentiation)."
+      },
+      {
+        question: "What does len() function do?",
+        options: ["Returns length", "Returns type", "Returns sum"],
+        answer: "Returns length",
+        explanation: "len() gives the number of elements in a sequence."
+      },
+      {
+        question: "Which keyword is used to handle exceptions?",
+        options: ["try", "except", "finally"],
+        answer: "except",
+        explanation: "except is used to catch and handle exceptions."
+      },
+      {
+        question: "What will be the result of 3 + 2 * 2?",
+        options: ["7", "10", "12"],
+        answer: "7",
+        explanation: "Multiplication has higher precedence, so 2 * 2 = 4 and 3 + 4 = 7."
+      },
+      {
+        question: "Which of these is a correct boolean value in Python?",
+        options: ["True", "true", "TRUE"],
+        answer: "True",
+        explanation: "Python uses capitalized True and False."
+      },
+      {
+        question: "How do you insert comments in Python?",
+        options: ["# comment", "// comment", "/* comment */"],
+        answer: "# comment",
+        explanation: "Comments start with a # symbol in Python."
+      },
+      {
+        question: "What is the output of print(10 // 3)?",
+        options: ["3", "3.33", "4"],
+        answer: "3",
+        explanation: "// is floor division operator."
+      },
+      {
+        question: "Which keyword is used to create a class?",
+        options: ["class", "Class", "define"],
+        answer: "class",
+        explanation: "class keyword is used to define a new class in Python."
+      },
+      {
+        question: "Which symbol is used to create a dictionary?",
+        options: ["{}", "[]", "()"],
+        answer: "{}",
+        explanation: "Dictionaries are created using curly braces."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    // Utility function to get N unique random questions
+    function getRandomQuestions(pool, n) {
+      const shuffled = pool.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);  // Show 6 questions only
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Basic Python Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      // Disable submit button after submission
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    // Load quiz on page load
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

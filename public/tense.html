@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Tense Transformation Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Tense Transformation Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 Tense transformation questions
+    const questionPool = [
+      {
+        question: "Change to past tense: I eat an apple.",
+        options: [
+          "I ate an apple.",
+          "I eaten an apple.",
+          "I am eating an apple.",
+          "I was eat an apple."
+        ],
+        answer: "I ate an apple.",
+        explanation: "Simple present 'eat' changes to simple past 'ate'."
+      },
+      {
+        question: "Change to present continuous tense: She writes a letter.",
+        options: [
+          "She is writing a letter.",
+          "She was writing a letter.",
+          "She wrote a letter.",
+          "She writes a letter."
+        ],
+        answer: "She is writing a letter.",
+        explanation: "Simple present 'writes' changes to present continuous 'is writing'."
+      },
+      {
+        question: "Change to future tense: They are playing cricket.",
+        options: [
+          "They will play cricket.",
+          "They played cricket.",
+          "They are played cricket.",
+          "They will playing cricket."
+        ],
+        answer: "They will play cricket.",
+        explanation: "Present continuous changes to simple future with 'will' + base verb."
+      },
+      {
+        question: "Change to present perfect tense: He eats breakfast.",
+        options: [
+          "He has eaten breakfast.",
+          "He had eaten breakfast.",
+          "He is eating breakfast.",
+          "He will eat breakfast."
+        ],
+        answer: "He has eaten breakfast.",
+        explanation: "Simple present changes to present perfect with 'has' + past participle."
+      },
+      {
+        question: "Change to past continuous tense: I walk to school.",
+        options: [
+          "I was walking to school.",
+          "I walked to school.",
+          "I am walking to school.",
+          "I will walk to school."
+        ],
+        answer: "I was walking to school.",
+        explanation: "Simple present 'walk' changes to past continuous 'was walking'."
+      },
+      {
+        question: "Change to past perfect tense: She finishes the work.",
+        options: [
+          "She had finished the work.",
+          "She has finished the work.",
+          "She finished the work.",
+          "She will finish the work."
+        ],
+        answer: "She had finished the work.",
+        explanation: "Simple present changes to past perfect 'had' + past participle."
+      },
+      {
+        question: "Change to future continuous tense: They study now.",
+        options: [
+          "They will be studying.",
+          "They studied.",
+          "They are studying.",
+          "They will study."
+        ],
+        answer: "They will be studying.",
+        explanation: "Simple present changes to future continuous 'will be' + verb-ing."
+      },
+      {
+        question: "Change to present simple tense: She was cooking.",
+        options: [
+          "She cooks.",
+          "She cooked.",
+          "She is cooking.",
+          "She has cooked."
+        ],
+        answer: "She cooks.",
+        explanation: "Past continuous changes to simple present by using base verb with 's' for third person."
+      },
+      {
+        question: "Change to future perfect tense: He cleans the room.",
+        options: [
+          "He will have cleaned the room.",
+          "He cleaned the room.",
+          "He is cleaning the room.",
+          "He will clean the room."
+        ],
+        answer: "He will have cleaned the room.",
+        explanation: "Future perfect uses 'will have' + past participle."
+      },
+      {
+        question: "Change to past simple tense: They are watching a movie.",
+        options: [
+          "They watched a movie.",
+          "They are watched a movie.",
+          "They will watch a movie.",
+          "They watch a movie."
+        ],
+        answer: "They watched a movie.",
+        explanation: "Present continuous changes to simple past by changing verb to past tense."
+      },
+      {
+        question: "Change to present continuous tense: He writes a report.",
+        options: [
+          "He is writing a report.",
+          "He wrote a report.",
+          "He was writing a report.",
+          "He will write a report."
+        ],
+        answer: "He is writing a report.",
+        explanation: "Simple present changes to present continuous using 'is' + verb-ing."
+      },
+      {
+        question: "Change to past perfect continuous tense: I work all day.",
+        options: [
+          "I had been working all day.",
+          "I have been working all day.",
+          "I was working all day.",
+          "I will have been working all day."
+        ],
+        answer: "I had been working all day.",
+        explanation: "Past perfect continuous uses 'had been' + verb-ing."
+      },
+      {
+        question: "Change to simple present tense: She was dancing.",
+        options: [
+          "She dances.",
+          "She danced.",
+          "She is dancing.",
+          "She has danced."
+        ],
+        answer: "She dances.",
+        explanation: "Past continuous changes to simple present by using base verb with 's' for third person."
+      },
+      {
+        question: "Change to present perfect continuous tense: They play football.",
+        options: [
+          "They have been playing football.",
+          "They had been playing football.",
+          "They are playing football.",
+          "They will be playing football."
+        ],
+        answer: "They have been playing football.",
+        explanation: "Present perfect continuous uses 'have been' + verb-ing."
+      },
+      {
+        question: "Change to future perfect continuous tense: He studies for exams.",
+        options: [
+          "He will have been studying for exams.",
+          "He had been studying for exams.",
+          "He has been studying for exams.",
+          "He will be studying for exams."
+        ],
+        answer: "He will have been studying for exams.",
+        explanation: "Future perfect continuous uses 'will have been' + verb-ing."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    // Utility function to get N unique random questions
+    function getRandomQuestions(pool, n) {
+      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);  // Show 6 questions only
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Tense Transformation Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    // Load quiz on page load
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Arena | HTML Quiz</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f7faff, #dce5ff);
+      color: #333;
+    }
+    header, footer {
+      background-color: #4a69bd;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2d3436;
+      margin-bottom: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-left: 5px solid #4a69bd;
+      background-color: #f2f6ff;
+      border-radius: 8px;
+    }
+    label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    label:hover, label.selected { background-color: #e0ecff; }
+    button {
+      padding: 12px 20px;
+      margin: 10px 10px 0 0;
+      background-color: #4a69bd;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #3d5aa0; }
+    #timer {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      color: #e74c3c;
+      margin-bottom: 10px;
+    }
+    #scoreBarWrapper {
+      height: 20px;
+      background: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    #scoreBar {
+      height: 100%;
+      width: 0%;
+      background: #2ecc71;
+      transition: width 0.3s, background 0.3s;
+    }
+    .summary {
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 5px solid #4a69bd;
+      margin-top: 20px;
+    }
+    .correct { background: #d4edda; }
+    .wrong { background: #f8d7da; }
+    .explanation {
+      font-style: italic;
+      margin-top: 10px;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 15px; }
+      button { width: 100%; margin: 10px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quiz Arena</h1>
+    <p>HTML Quiz - Test Your Basics</p>
+  </header>
+
+  <div class="container">
+    <h2>HTML Basics Quiz</h2>
+    <div id="timer">Time Left: 60s</div>
+    <div id="scoreBarWrapper"><div id="scoreBar"></div></div>
+    <div id="summary" class="summary"></div>
+    <form id="quizForm"></form>
+    <button id="submitBtn" style="display:none;">Submit</button>
+    <button id="resetBtn" style="display:none;">Reset</button>
+  </div>
+
+  <footer>
+    &copy; 2025 Quiz Arena | Powered by HTML, CSS & JS
+  </footer>
+
+  
+  <script>
+  
+  const questionPool = [
+  {
+    question: "What does HTML stand for?",
+    options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language", "Hyper Tool Main Language"],
+    answer: "Hyper Text Markup Language",
+    explanation: "HTML stands for Hyper Text Markup Language."
+  },
+  {
+    question: "Who is responsible for defining Web standards?",
+    options: ["Google", "Mozilla", "Microsoft", "The World Wide Web Consortium"],
+    answer: "The World Wide Web Consortium",
+    explanation: "The World Wide Web Consortium (W3C) sets web standards."
+  },
+  {
+    question: "Which element is used for the largest heading?",
+    options: ["h1", "heading", "h6", "head"],
+    answer: "h1",
+    explanation: "The h1 element defines the largest heading."
+  },
+  {
+    question: "Which element is used to insert a line break?",
+    options: ["br", "lb", "break", "b"],
+    answer: "br",
+    explanation: "The br element inserts a line break in HTML."
+  },
+  {
+    question: "Which is the correct way to apply a yellow background color in HTML?",
+    options: ["body style equals background-color:yellow;", "background yellow", "body bg equals yellow", "body style equals color:yellow;"],
+    answer: "body style equals background-color:yellow;",
+    explanation: "Use inline CSS like body style equals background-color:yellow; to set background."
+  },
+  {
+    question: "Which element sets the document title visible in the browser tab?",
+    options: ["title", "meta", "head", "header"],
+    answer: "title",
+    explanation: "The title element defines the document's title."
+  },
+  {
+    question: "What is the correct element to add an image in HTML?",
+    options: ["img", "image", "pic", "src"],
+    answer: "img",
+    explanation: "The img element is used to embed images in HTML."
+  },
+  {
+    question: "Which attribute specifies the link destination in an anchor?",
+    options: ["href", "src", "link", "url"],
+    answer: "href",
+    explanation: "The href attribute defines the destination URL in links."
+  },
+  {
+    question: "Which element is used to create a numbered list?",
+    options: ["ol", "ul", "li", "list"],
+    answer: "ol",
+    explanation: "The ol element creates an ordered (numbered) list."
+  },
+  {
+    question: "Which element represents a table row?",
+    options: ["tr", "td", "th", "row"],
+    answer: "tr",
+    explanation: "The tr element defines a row in a table."
+  },
+  {
+    question: "Which element defines bold text without semantic importance?",
+    options: ["b", "strong", "bold", "em"],
+    answer: "b",
+    explanation: "The b element makes text bold without adding semantic emphasis."
+  },
+  {
+    question: "Which input type is used to create a checkbox?",
+    options: ["checkbox", "radio", "text", "option"],
+    answer: "checkbox",
+    explanation: "The input type checkbox creates a checkbox field."
+  },
+  {
+    question: "Which element is used to group form inputs together?",
+    options: ["fieldset", "formgroup", "section", "group"],
+    answer: "fieldset",
+    explanation: "The fieldset element groups related form controls."
+  },
+  {
+    question: "Which element is used to define navigation links?",
+    options: ["nav", "menu", "links", "navigate"],
+    answer: "nav",
+    explanation: "The nav element is used to define a section with navigation links."
+  },
+  {
+    question: "Which element defines emphasized text in HTML?",
+    options: ["em", "italic", "i", "strong"],
+    answer: "em",
+    explanation: "The em element marks emphasized (italicized) text."
+  }
+];
+
+
+  const quizForm = document.getElementById("quizForm");
+  const summaryDiv = document.getElementById("summary");
+  const submitBtn = document.getElementById("submitBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const timerDisplay = document.getElementById("timer");
+  const scoreBar = document.getElementById("scoreBar");
+  const scoreBarWrapper = document.getElementById("scoreBarWrapper");
+
+  let timer, timeLeft, currentQuestions = [];
+
+  function getRandomQuestions(pool, n) {
+    return pool.sort(() => 0.5 - Math.random()).slice(0, n);
+  }
+
+  function renderQuiz() {
+    quizForm.innerHTML = "";
+    summaryDiv.innerHTML = "";
+    currentQuestions = getRandomQuestions(questionPool, 6);
+
+    currentQuestions.forEach((q, index) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.id = `q${index}-box`;
+
+      const p = document.createElement("p");
+      p.innerHTML = `<strong>${index + 1}. ${q.question}</strong>`;
+      div.appendChild(p);
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `q${index}`;
+        input.value = option;
+
+        input.addEventListener("change", () => {
+          document.querySelectorAll(`input[name="q${index}"]`).forEach(r => r.parentElement.classList.remove("selected"));
+          input.parentElement.classList.add("selected");
+        });
+
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(` ${option}`));
+        div.appendChild(label);
+      });
+
+      quizForm.appendChild(div);
+    });
+
+    submitBtn.style.display = 'inline-block';
+    resetBtn.style.display = 'inline-block';
+    startTimer();
+  }
+
+  function startTimer() {
+    timeLeft = 60;
+    timerDisplay.textContent = `Time Left: ${timeLeft}s`;
+    clearInterval(timer);
+    timer = setInterval(() => {
+      timeLeft--;
+      timerDisplay.textContent = `Time Left: ${timeLeft}s`;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        checkAnswers();
+      }
+    }, 1000);
+  }
+
+  function updateScoreBar(score, grade) {
+    const percentage = (score / 6) * 100;
+    scoreBar.style.width = `${percentage}%`;
+    scoreBar.style.backgroundColor = grade === "PASS" ? "#2ecc71" : "#e74c3c";
+  }
+
+  function checkAnswers() {
+    clearInterval(timer);
+    let score = 0, correctCount = 0, wrongCount = 0, unansweredCount = 0;
+
+    currentQuestions.forEach((q, index) => {
+      const selected = document.querySelector(`input[name="q${index}"]:checked`);
+      const box = document.getElementById(`q${index}-box`);
+      box.classList.remove("correct", "wrong");
+      const explanationText = document.createElement("div");
+      explanationText.className = "explanation";
+
+      if (selected) {
+        if (selected.value === q.answer) {
+          score++; correctCount++;
+          box.classList.add("correct");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+        } else {
+          wrongCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+        }
+      } else {
+        unansweredCount++;
+        box.classList.add("wrong");
+        explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+      }
+
+      box.appendChild(explanationText);
+    });
+
+    const grade = score >= 4 ? "PASS" : "FAIL";
+    updateScoreBar(score, grade);
+
+    summaryDiv.innerHTML = `
+      <h3>🎉 You completed the quiz!</h3>
+      <p>You scored <strong>${score}</strong> out of 6.</p>
+      <p>Correct: <strong>${correctCount}</strong> | Wrong: <strong>${wrongCount}</strong> | Unanswered: <strong>${unansweredCount}</strong></p>
+      <p>Grade: <strong style="color:${grade === 'PASS' ? '#2ecc71' : '#e74c3c'}">${grade}</strong></p>
+    `;
+
+    submitBtn.disabled = true;
+
+    scoreBarWrapper.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector("h2").scrollIntoView({ behavior: 'smooth' }); // 👈 scroll to quiz title
+  }
+
+  function resetQuiz() {
+    quizForm.innerHTML = "";
+    summaryDiv.innerHTML = "";
+    scoreBar.style.width = '0%';
+    scoreBar.style.backgroundColor = '#2ecc71';
+    submitBtn.disabled = false;
+    renderQuiz();
+
+    scoreBarWrapper.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector("h2").scrollIntoView({ behavior: 'smooth' }); // 👈 scroll to quiz title
+  }
+
+  submitBtn.addEventListener('click', checkAnswers);
+  resetBtn.addEventListener('click', resetQuiz);
+  window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

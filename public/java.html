@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Java Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Basic Java Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 questions (can add more)
+    const questionPool = [
+      {
+        question: "What is the default value of an instance variable in Java?",
+        options: ["null", "0", "undefined", "false"],
+        answer: "null",
+        explanation: "In Java, the default value of an instance variable is null for objects, 0 for numeric types, and false for boolean types."
+      },
+      {
+        question: "Which method is the entry point of a Java program?",
+        options: ["start()", "main()", "run()", "init()"],
+        answer: "main()",
+        explanation: "The main() method is the entry point of a Java program."
+      },
+      {
+        question: "Which of these is not a valid keyword in Java?",
+        options: ["static", "boolean", "null", "catch"],
+        answer: "null",
+        explanation: "'null' is a literal, not a keyword, in Java."
+      },
+      {
+        question: "What does the 'final' keyword do in Java?",
+        options: ["Makes a variable constant", "Prevents method overriding", "Both of the above", "None of the above"],
+        answer: "Both of the above",
+        explanation: "The 'final' keyword in Java can be used to make a variable constant and prevent method overriding."
+      },
+      {
+        question: "What is the size of an int in Java?",
+        options: ["16 bits", "32 bits", "64 bits", "8 bits"],
+        answer: "32 bits",
+        explanation: "In Java, the size of an int is always 32 bits."
+      },
+      {
+        question: "What will be the output of the following code in Java: System.out.println(10 / 3);?",
+        options: ["3", "3.0", "3.33", "10 / 3"],
+        answer: "3",
+        explanation: "In Java, dividing two integers results in an integer. Hence, 10 / 3 will give 3."
+      },
+      {
+        question: "Which of these classes is used to read data from a file in Java?",
+        options: ["FileReader", "FileWriter", "BufferedReader", "Scanner"],
+        answer: "FileReader",
+        explanation: "FileReader class is used to read data from a file in Java."
+      },
+      {
+        question: "Which of these is used to handle exceptions in Java?",
+        options: ["try-catch", "throw-throws", "throws-catch", "catch-throw"],
+        answer: "try-catch",
+        explanation: "In Java, exceptions are handled using try-catch blocks."
+      },
+      {
+        question: "Which access modifier allows access to a class or variable only within the same package?",
+        options: ["private", "public", "protected", "default"],
+        answer: "default",
+        explanation: "The default access modifier allows access within the same package if no other access modifier is specified."
+      },
+      {
+        question: "What is the default value of a boolean variable in Java?",
+        options: ["true", "false", "null", "0"],
+        answer: "false",
+        explanation: "The default value of a boolean variable in Java is false."
+      },
+      {
+        question: "What does the 'super' keyword refer to in Java?",
+        options: ["Parent class", "Current class", "Child class", "None of the above"],
+        answer: "Parent class",
+        explanation: "'super' is used to refer to the parent class of the current class."
+      },
+      {
+        question: "Which of these is used for garbage collection in Java?",
+        options: ["GC", "collect()", "System.gc()", "memory.clear()"],
+        answer: "System.gc()",
+        explanation: "In Java, garbage collection can be triggered using System.gc() method."
+      },
+      {
+        question: "Which of these is not a Java collection interface?",
+        options: ["Set", "List", "Map", "Tuple"],
+        answer: "Tuple",
+        explanation: "Tuple is not part of the Java Collections framework. Set, List, and Map are."
+      },
+      {
+        question: "Which of these statements is true about the 'this' keyword in Java?",
+        options: ["Refers to the current class object", "Refers to the parent class object", "Refers to the method object", "None of the above"],
+        answer: "Refers to the current class object",
+        explanation: "'this' keyword in Java refers to the current class object."
+      },
+      {
+        question: "Which method is used to compare two strings in Java?",
+        options: ["compareTo()", "equals()", "compare()", "All of the above"],
+        answer: "All of the above",
+        explanation: "All of these methods can be used to compare strings in Java."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    // Utility function to get N unique random questions
+    function getRandomQuestions(pool, n) {
+      const shuffled = pool.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);  // Show 6 questions only
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Basic Java Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      // Disable submit button after submission
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    // Load quiz on page load
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coding Language History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d0c9ea;
+    }
+
+    header {
+      background-color: #c2b4e2;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .language {
+      background-color: #fff;
+      margin: 20px;
+      padding: 20px;
+      border: 2px solid #ddd;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: calc(63.33% - 20px);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      text-align: center;
+      position: relative;
+      cursor: default;
+    }
+
+    .language:hover {
+      border-color: #926AA6;
+      box-shadow: 0 0 12px rgba(146, 106, 166, 0.7);
+    }
+
+    .language h2 {
+      color: #333;
+      font-family: Georgia, serif;
+    }
+
+    .language h3 {
+      color: #333;
+      font-family: Calibri, sans-serif;
+      font-style: italic;
+      margin-top: 0;
+    }
+
+    .language img {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      display: block;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      border-radius: 15px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+    .language img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #926AA6;
+    }
+
+    /* Stylish message container */
+    .message {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #7e57c2, #512da8);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 17px;
+      box-shadow: 0 4px 12px rgba(81, 45, 168, 0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, bottom 0.4s ease;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .message.show {
+      opacity: 1;
+      pointer-events: auto;
+      bottom: 50px;
+      user-select: auto;
+    }
+
+    .message a {
+      color: #ffea00;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 1px dotted #ffea00;
+      cursor: pointer;
+    }
+    .message a:hover {
+      color: #fff176;
+      border-bottom-style: solid;
+    }
+
+    footer {
+      background-color: #c2b4e2;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A Brief History of Coding Languages</h1>
+  </header>
+
+  <main>
+    <div class="language">
+      <h2>Simplification</h2>
+      <h3>HYPERTEXT MARKUP LANGUAGE</h3>
+      <img src="/images/html.png" alt="Simplification Logo" class="logo-img" data-tutorial="Simplificationinfo.html" />
+      <div class="message"></div>
+    </div>
+
+    <div class="language">
+      <h2>Percentage</h2>
+      <h3>First high-level language.</h3>
+      <img src="/images/c.png" alt="Percentage Logo" class="logo-img" data-tutorial="Percentageinfo.html" />
+      <div class="message"></div>
+    </div>
+
+    <div class="language">
+      <h2>Ratio and Proportion</h2>
+      <h3>Versatile and easy-to-learn</h3>
+      <img src="/images/python.png" alt="ratio Logo" class="logo-img" data-tutorial="RatioandProportioninfo.html" />
+      <div class="message"></div>
+    </div>
+
+    <div class="language">
+      <h2>Speed and Distance</h2>
+      <h3>First object-oriented language.</h3>
+      <img src="/images/java.png" alt="speed Logo" class="logo-img" data-tutorial="speedtimeanddistanceinfo.html" />
+      <div class="message"></div>
+    </div>
+
+    <div class="language">
+      <h2>Simple Interest</h2>
+      <h3>First object-oriented language.</h3>
+      <img src="/images/java.png" alt="Interest Logo" class="logo-img" data-tutorial="simpleinterestinfo.html" />
+      <div class="message"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Coding Language History</p>
+  </footer>
+
+  <script>
+    const languages = document.querySelectorAll('.language');
+
+    languages.forEach(language => {
+      const logo = language.querySelector('.logo-img');
+      const messageDiv = language.querySelector('.message');
+
+      logo.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent document click hiding message immediately
+
+        // Hide messages on all others first
+        document.querySelectorAll('.message.show').forEach(msg => {
+          if (msg !== messageDiv) {
+            msg.classList.remove('show');
+            msg.innerHTML = '';
+          }
+        });
+
+        const tutorialPage = logo.getAttribute('data-tutorial');
+        const altText = logo.alt.toLowerCase();
+
+        let message = "Study this language in our tutorial.";
+        if (altText.includes('simplification')) {
+          message = "Study Simplification in our Simplification Tutorial";
+        } else if (altText.includes('percentage')) {
+          message = "Study Percentage in our Percentage Tutorial";
+        } else if (altText.includes('ratio')) {
+          message = "Study Ratio and Proportion in our Ratio and Proportion Tutorial";
+        } else if (altText.includes('speed')) {
+          message = "Study Speed and Distance in our Speed and Distance Tutorial";
+        }else if (altText.includes('interest')) {
+          message = "Study Simple Interest in our Simple Interest Tutorial";
+        }
+
+        messageDiv.innerHTML = `<a href="${tutorialPage}">${message}</a>`;
+        messageDiv.classList.add('show');
+      });
+
+      // Hide message if mouse leaves the language box
+      language.addEventListener('mouseleave', () => {
+        messageDiv.classList.remove('show');
+        messageDiv.innerHTML = '';
+      });
+    });
+
+    // Clicking anywhere outside hides all messages
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.message.show').forEach(msg => {
+        msg.classList.remove('show');
+        msg.innerHTML = '';
+      });
+    });
+  </script>
+</body>
+</html>

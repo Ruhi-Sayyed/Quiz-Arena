@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Language Timeline</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #f8e1f4, #c6ddf8);
+      color: #333;
+    }
+
+    header {
+      background: #6c5ce7;
+      padding: 30px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    .timeline {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .entry {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .entry::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 20px;
+      width: 12px;
+      height: 12px;
+      background-color: #6c5ce7;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.2);
+    }
+
+    .entry::after {
+      content: '';
+      position: absolute;
+      left: -14px;
+      top: 40px;
+      width: 2px;
+      height: calc(100% - 40px);
+      background-color: #b2bec3;
+    }
+
+    .entry:hover {
+      transform: translateY(-5px);
+    }
+
+    .entry h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #2d3436;
+    }
+
+    .entry h3 {
+      margin: 5px 0 15px;
+      font-size: 1rem;
+      color: #636e72;
+      font-style: italic;
+    }
+
+    .entry img {
+      float: right;
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-left: 20px;
+    }
+
+    .entry p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .entry a {
+      display: inline-block;
+      margin-top: 12px;
+      background: #6c5ce7;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .entry a:hover {
+      background: #4834d4;
+    }
+
+    @media (max-width: 600px) {
+      .entry img {
+        float: none;
+        display: block;
+        margin: 15px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Coding Language Timeline</h1>
+    <p>Discover how modern programming languages evolved</p>
+  </header>
+
+  <section class="timeline">
+
+    <div class="entry">
+      <img src="/images/html.png" alt="HTML Logo">
+      <h2>HTML (1993)</h2>
+      <h3>HyperText Markup Language</h3>
+      <p>HTML is the standard markup language used to create web pages. It forms the structure of all websites.</p>
+      <a href="htmlinfo.html">Go to HTML Tutorial →</a>
+    </div>
+
+    <div class="entry">
+      <img src="/images/css.png" alt="CSS Logo">
+      <h2>CSS (1996)</h2>
+      <h3>Cascading Style Sheets</h3>
+      <p>CSS is used for styling HTML elements, enabling visual customization of websites from layout to animations.</p>
+      <a href="cssinfo.html">Go to CSS Tutorial →</a>
+    </div>
+
+    <div class="entry">
+      <img src="/images/python.png" alt="Python Logo">
+      <h2>Python (1991)</h2>
+      <h3>Easy-to-learn, versatile programming language</h3>
+      <p>Python is widely used for web development, automation, AI, and data science due to its simple syntax and power.</p>
+      <a href="pythoninfo.html">Go to Python Tutorial →</a>
+    </div>
+
+    <div class="entry">
+      <img src="/images/java.png" alt="Java Logo">
+      <h2>Java (1995)</h2>
+      <h3>Object-Oriented Programming Language</h3>
+      <p>Java is known for its portability and is widely used in enterprise applications, Android development, and more.</p>
+      <a href="javainfo.html">Go to Java Tutorial →</a>
+    </div>
+
+    <div class="entry">
+      <img src="/images/js.png" alt="JavaScript Logo">
+      <h2>JavaScript (1995)</h2>
+      <h3>The language of the Web</h3>
+      <p>JavaScript is a scripting language used to create dynamic and interactive experiences on websites and apps.</p>
+      <a href="javascriptinfo.html">Go to JavaScript Tutorial →</a>
+    </div>
+
+  </section>
+
+</body>
+</html>

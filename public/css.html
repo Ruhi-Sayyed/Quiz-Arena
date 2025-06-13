@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized CSS Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Basic CSS Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    const questionPool = [
+      {
+        question: "What does CSS stand for?",
+        options: ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style Sheets"],
+        answer: "Cascading Style Sheets",
+        explanation: "CSS stands for Cascading Style Sheets, used to style HTML elements."
+      },
+      {
+        question: "Which property is used to change the text color in CSS?",
+        options: ["color", "text-color", "font-color"],
+        answer: "color",
+        explanation: "The 'color' property sets the color of the text."
+      },
+      {
+        question: "How do you select an element with id 'header' in CSS?",
+        options: ["#header", ".header", "header"],
+        answer: "#header",
+        explanation: "The '#' selector is used for selecting an element by ID."
+      },
+      {
+        question: "Which CSS property controls the size of text?",
+        options: ["font-size", "text-size", "font-style"],
+        answer: "font-size",
+        explanation: "The 'font-size' property changes the size of the text."
+      },
+      {
+        question: "What is the default position value in CSS?",
+        options: ["static", "relative", "absolute"],
+        answer: "static",
+        explanation: "'static' is the default position value in CSS."
+      },
+      {
+        question: "Which property is used to change the background color?",
+        options: ["background-color", "bg-color", "color"],
+        answer: "background-color",
+        explanation: "The 'background-color' property changes the background color of an element."
+      },
+      {
+        question: "Which CSS property is used to make text italic?",
+        options: ["font-style", "text-decoration", "style"],
+        answer: "font-style",
+        explanation: "The 'font-style' property can be set to 'italic' to italicize text."
+      },
+      {
+        question: "How do you select all elements with class 'menu'?",
+        options: [".menu", "#menu", "*menu"],
+        answer: ".menu",
+        explanation: "Use '.' to select elements by class."
+      },
+      {
+        question: "Which property is used to add space inside an element?",
+        options: ["padding", "margin", "border"],
+        answer: "padding",
+        explanation: "'padding' adds space inside the element, between the content and the border."
+      },
+      {
+        question: "What is the use of the z-index property?",
+        options: ["To set stack order", "To zoom image", "To set font"],
+        answer: "To set stack order",
+        explanation: "'z-index' controls the vertical stacking order of elements."
+      },
+      {
+        question: "Which unit is relative to the root element font size?",
+        options: ["rem", "em", "%"],
+        answer: "rem",
+        explanation: "'rem' is relative to the root element's font size."
+      },
+      {
+        question: "What does the 'display: none;' rule do?",
+        options: ["Hides the element", "Makes text bold", "Adds margin"],
+        answer: "Hides the element",
+        explanation: "'display: none;' removes the element from the layout."
+      },
+      {
+        question: "How do you make a list horizontal?",
+        options: ["display: inline", "display: block", "list-style: none"],
+        answer: "display: inline",
+        explanation: "Setting 'display: inline' on list items makes them horizontal."
+      },
+      {
+        question: "Which property is used to add shadow to text?",
+        options: ["text-shadow", "font-shadow", "shadow"],
+        answer: "text-shadow",
+        explanation: "The 'text-shadow' property adds shadow to text."
+      },
+      {
+        question: "How do you make a border rounded?",
+        options: ["border-radius", "border-round", "rounded-border"],
+        answer: "border-radius",
+        explanation: "'border-radius' is used to make element corners rounded."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    function getRandomQuestions(pool, n) {
+      const shuffled = pool.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);
+
+      currentQuestions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${index + 1}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Basic CSS Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    window.onload = renderQuiz;
+  </script>
+
+</body>
+</html>

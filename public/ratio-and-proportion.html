@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Ratio and Proportion Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Ratio and Proportion Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 Ratio and Proportion questions
+    const questionPool = [
+      {
+        question: "If the ratio of boys to girls in a class is 3:4 and there are 21 boys, how many girls are there?",
+        options: [
+          "28",
+          "24",
+          "30",
+          "35"
+        ],
+        answer: "28",
+        explanation: "If boys:girls = 3:4 and boys = 21, then girls = (21 / 3) × 4 = 7 × 4 = 28."
+      },
+      {
+        question: "The ratio of the ages of two brothers is 5:7. If the elder brother is 21 years old, what is the age of the younger brother?",
+        options: [
+          "15",
+          "12",
+          "18",
+          "20"
+        ],
+        answer: "15",
+        explanation: "If elder brother = 7 parts = 21 years, then 1 part = 3 years. Younger brother = 5 parts = 5 × 3 = 15."
+      },
+      {
+        question: "Two numbers are in the ratio 4:9. If their sum is 65, what are the numbers?",
+        options: [
+          "20 and 45",
+          "25 and 40",
+          "18 and 47",
+          "30 and 35"
+        ],
+        answer: "20 and 45",
+        explanation: "4x + 9x = 65 → 13x = 65 → x=5. Numbers = 4×5=20 and 9×5=45."
+      },
+      {
+        question: "If 5 litres of milk are mixed with 3 litres of water, what is the ratio of milk to water?",
+        options: [
+          "5:3",
+          "3:5",
+          "8:3",
+          "5:8"
+        ],
+        answer: "5:3",
+        explanation: "Milk to water ratio is directly 5 litres to 3 litres = 5:3."
+      },
+      {
+        question: "A recipe requires ingredients in the ratio 2:3:5. If the quantity of the first ingredient is 200g, what is the quantity of the second ingredient?",
+        options: [
+          "300g",
+          "250g",
+          "400g",
+          "500g"
+        ],
+        answer: "300g",
+        explanation: "2 parts = 200g → 1 part = 100g. Second ingredient = 3 parts = 300g."
+      },
+      {
+        question: "The ratio of two quantities is 7:9. If the sum is 64, what is the larger quantity?",
+        options: [
+          "36",
+          "28",
+          "30",
+          "32"
+        ],
+        answer: "36",
+        explanation: "7x + 9x = 64 → 16x=64 → x=4. Larger quantity = 9×4=36."
+      },
+      {
+        question: "If 3 pens cost $15, what is the cost of 7 pens assuming cost is directly proportional to the number of pens?",
+        options: [
+          "$35",
+          "$30",
+          "$25",
+          "$40"
+        ],
+        answer: "$35",
+        explanation: "Cost per pen = $15/3 = $5. Cost of 7 pens = 7 × $5 = $35."
+      },
+      {
+        question: "Two quantities are in the ratio 5:8. If the smaller quantity is 20, find the larger quantity.",
+        options: [
+          "32",
+          "30",
+          "28",
+          "25"
+        ],
+        answer: "32",
+        explanation: "5 parts = 20 → 1 part = 4. Larger quantity = 8 × 4 = 32."
+      },
+      {
+        question: "A map uses a scale of 1:50,000. What is the real distance if the distance on the map is 3 cm?",
+        options: [
+          "1.5 km",
+          "1500 m",
+          "15 km",
+          "150 km"
+        ],
+        answer: "1.5 km",
+        explanation: "Real distance = 3 cm × 50,000 = 150,000 cm = 1.5 km."
+      },
+      {
+        question: "If the ratio of length to breadth of a rectangle is 7:5 and the perimeter is 48 cm, what is the length?",
+        options: [
+          "14 cm",
+          "21 cm",
+          "18 cm",
+          "24 cm"
+        ],
+        answer: "14 cm",
+        explanation: "Let length = 7x, breadth = 5x. Perimeter = 2(l+b) = 2(7x +5x) = 24x = 48 → x=2. Length = 7×2=14 cm."
+      },
+      {
+        question: "If 4 kg of sugar costs $28, what is the cost of 6 kg of sugar?",
+        options: [
+          "$42",
+          "$38",
+          "$36",
+          "$40"
+        ],
+        answer: "$42",
+        explanation: "Cost per kg = $28/4 = $7. Cost of 6 kg = 6 × 7 = $42."
+      },
+      {
+        question: "Two numbers are in the ratio 3:5. If their difference is 16, what is the smaller number?",
+        options: [
+          "12",
+          "15",
+          "9",
+          "20"
+        ],
+        answer: "12",
+        explanation: "Let numbers be 3x and 5x. Difference = 5x - 3x = 2x =16 → x=8. Smaller number = 3×8=24."
+      },
+      {
+        question: "If 8 liters of a mixture contains alcohol and water in the ratio 5:3, how much alcohol is there?",
+        options: [
+          "5 liters",
+          "3 liters",
+          "4 liters",
+          "6 liters"
+        ],
+        answer: "5 liters",
+        explanation: "Alcohol = (5/8) × 8 = 5 liters."
+      },
+      {
+        question: "The ratio of speeds of two cars is 4:5. If the slower car travels at 48 km/h, what is the speed of the faster car?",
+        options: [
+          "60 km/h",
+          "52 km/h",
+          "58 km/h",
+          "64 km/h"
+        ],
+        answer: "60 km/h",
+        explanation: "4 parts = 48 km/h → 1 part = 12 km/h. Faster car speed = 5 × 12 = 60 km/h."
+      },
+      {
+        question: "If the ratio of quantity A to quantity B is 2:3, and quantity B is 15, what is quantity A?",
+        options: [
+          "10",
+          "12",
+          "8",
+          "18"
+        ],
+        answer: "10",
+        explanation: "3 parts = 15 → 1 part = 5. Quantity A = 2 × 5 = 10."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    // Utility function to get N unique random questions
+    function getRandomQuestions(pool, n) {
+      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);  // Show 6 questions only
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Ratio and Proportion Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    // Load quiz on page load
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>

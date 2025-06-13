@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Randomized Change Voice Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .summary {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-left: 6px solid white;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #c8f7c5;
+    }
+    .wrong {
+      background-color: #f7c5c5;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Change Voice Quiz For Beginners</h2>
+
+  <div class="summary" id="summary"></div>
+
+  <form id="quizForm"></form>
+
+  <button id="submitBtn" style="display:none;">Submit</button>
+  <button id="resetBtn" style="display:none;">Reset</button>
+
+  <script>
+    // Pool of 15 Change Voice related questions
+    const questionPool = [
+      {
+        question: "Change to passive voice: They clean the house every day.",
+        options: [
+          "The house is cleaned every day.",
+          "The house cleans every day.",
+          "The house was cleaned every day.",
+          "The house is cleaning every day."
+        ],
+        answer: "The house is cleaned every day.",
+        explanation: "In passive voice, the object 'the house' becomes the subject, and 'clean' becomes 'is cleaned' in present tense."
+      },
+      {
+        question: "Change to active voice: The letter was written by Sarah.",
+        options: [
+          "Sarah wrote the letter.",
+          "Sarah writes the letter.",
+          "Sarah is writing the letter.",
+          "Sarah was writing the letter."
+        ],
+        answer: "Sarah wrote the letter.",
+        explanation: "In active voice, the doer 'Sarah' comes first, and verb tense is simple past."
+      },
+      {
+        question: "Change to passive voice: The chef cooks the meal.",
+        options: [
+          "The meal is cooked by the chef.",
+          "The meal cooked by the chef.",
+          "The meal was cooking by the chef.",
+          "The meal is cooking by the chef."
+        ],
+        answer: "The meal is cooked by the chef.",
+        explanation: "Present simple passive: 'is cooked by'."
+      },
+      {
+        question: "Change to active voice: The homework was done by the student.",
+        options: [
+          "The student did the homework.",
+          "The student does the homework.",
+          "The student is doing the homework.",
+          "The student was doing the homework."
+        ],
+        answer: "The student did the homework.",
+        explanation: "Active voice simple past: 'did the homework'."
+      },
+      {
+        question: "Change to passive voice: They will finish the project next week.",
+        options: [
+          "The project will be finished next week.",
+          "The project is finished next week.",
+          "The project was finished next week.",
+          "The project will finished next week."
+        ],
+        answer: "The project will be finished next week.",
+        explanation: "Future passive uses 'will be' + past participle."
+      },
+      {
+        question: "Change to active voice: The report has been submitted by the manager.",
+        options: [
+          "The manager has submitted the report.",
+          "The manager have submitted the report.",
+          "The manager was submitting the report.",
+          "The manager is submitting the report."
+        ],
+        answer: "The manager has submitted the report.",
+        explanation: "Present perfect active voice: 'has submitted'."
+      },
+      {
+        question: "Change to passive voice: She writes novels.",
+        options: [
+          "Novels are written by her.",
+          "Novels is written by her.",
+          "Novels were written by her.",
+          "Novels was written by her."
+        ],
+        answer: "Novels are written by her.",
+        explanation: "Present simple passive: 'are written by'."
+      },
+      {
+        question: "Change to active voice: The windows were cleaned by the staff.",
+        options: [
+          "The staff cleaned the windows.",
+          "The staff cleans the windows.",
+          "The staff is cleaning the windows.",
+          "The staff was cleaning the windows."
+        ],
+        answer: "The staff cleaned the windows.",
+        explanation: "Simple past active voice."
+      },
+      {
+        question: "Change to passive voice: He is repairing the car.",
+        options: [
+          "The car is being repaired by him.",
+          "The car is repaired by him.",
+          "The car was repaired by him.",
+          "The car will be repaired by him."
+        ],
+        answer: "The car is being repaired by him.",
+        explanation: "Present continuous passive: 'is being repaired'."
+      },
+      {
+        question: "Change to active voice: The cake was baked by my mother.",
+        options: [
+          "My mother baked the cake.",
+          "My mother bakes the cake.",
+          "My mother is baking the cake.",
+          "My mother was baking the cake."
+        ],
+        answer: "My mother baked the cake.",
+        explanation: "Simple past active voice."
+      },
+      {
+        question: "Change to passive voice: They have completed the assignment.",
+        options: [
+          "The assignment has been completed.",
+          "The assignment have been completed.",
+          "The assignment was completed.",
+          "The assignment is completed."
+        ],
+        answer: "The assignment has been completed.",
+        explanation: "Present perfect passive uses 'has been' + past participle."
+      },
+      {
+        question: "Change to active voice: The movie is being watched by the children.",
+        options: [
+          "The children are watching the movie.",
+          "The children watch the movie.",
+          "The children watched the movie.",
+          "The children have watched the movie."
+        ],
+        answer: "The children are watching the movie.",
+        explanation: "Present continuous active voice."
+      },
+      {
+        question: "Change to passive voice: He wrote the book last year.",
+        options: [
+          "The book was written last year.",
+          "The book is written last year.",
+          "The book has been written last year.",
+          "The book will be written last year."
+        ],
+        answer: "The book was written last year.",
+        explanation: "Simple past passive: 'was written'."
+      },
+      {
+        question: "Change to active voice: The invitations were sent by the secretary.",
+        options: [
+          "The secretary sent the invitations.",
+          "The secretary sends the invitations.",
+          "The secretary is sending the invitations.",
+          "The secretary was sending the invitations."
+        ],
+        answer: "The secretary sent the invitations.",
+        explanation: "Simple past active voice."
+      },
+      {
+        question: "Change to passive voice: They are planting trees in the park.",
+        options: [
+          "Trees are being planted in the park.",
+          "Trees are planted in the park.",
+          "Trees were planted in the park.",
+          "Trees will be planted in the park."
+        ],
+        answer: "Trees are being planted in the park.",
+        explanation: "Present continuous passive: 'are being planted'."
+      }
+    ];
+
+    const quizForm = document.getElementById('quizForm');
+    const summaryDiv = document.getElementById('summary');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let currentQuestions = [];
+
+    // Utility function to get N unique random questions
+    function getRandomQuestions(pool, n) {
+      const shuffled = [...pool].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function renderQuiz() {
+      summaryDiv.innerHTML = "";
+      quizForm.innerHTML = "";
+      currentQuestions = getRandomQuestions(questionPool, 6);  // Show 6 questions only
+
+      currentQuestions.forEach((q, index) => {
+        const questionNumber = index + 1;
+
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.id = `q${index}-box`;
+
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${questionNumber}. ${q.question}</strong>`;
+        div.appendChild(p);
+
+        q.options.forEach(option => {
+          const label = document.createElement('label');
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `q${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${option}`));
+          div.appendChild(label);
+        });
+
+        quizForm.appendChild(div);
+      });
+
+      submitBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let unansweredCount = 0;
+
+      currentQuestions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const box = document.getElementById(`q${index}-box`);
+
+        box.classList.remove("correct", "wrong");
+        const oldExplanation = box.querySelector(".explanation");
+        if (oldExplanation) oldExplanation.remove();
+
+        let explanationText = document.createElement("div");
+        explanationText.className = "explanation";
+
+        if (selected) {
+          if (selected.value === q.answer) {
+            score++;
+            correctCount++;
+            box.classList.add("correct");
+            explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          } else {
+            wrongCount++;
+            box.classList.add("wrong");
+            explanationText.innerHTML = `<strong>Your Answer:</strong> ${selected.value}<br><strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}`;
+          }
+        } else {
+          unansweredCount++;
+          box.classList.add("wrong");
+          explanationText.innerHTML = `<strong>Correct Answer:</strong> ${q.answer}<br>${q.explanation}<br><em>You did not answer this question.</em>`;
+        }
+
+        box.appendChild(explanationText);
+      });
+
+      const grade = score >= 4 ? "PASS" : "FAIL";
+
+      summaryDiv.innerHTML = `
+        <h3>🎉 You have completed the Change Voice Quiz!</h3>
+        <p>You scored <strong>${score}</strong> points out of <strong>6</strong>.</p>
+        <p>Correct Answers: <strong>${correctCount}</strong></p>
+        <p>Wrong Answers: <strong>${wrongCount}</strong></p>
+        <p>Unanswered: <strong>${unansweredCount}</strong></p>
+        <p>Your grade is: <strong>${grade}</strong></p>
+      `;
+
+      summaryDiv.scrollIntoView({ behavior: "smooth" });
+
+      submitBtn.disabled = true;
+    }
+
+    function resetQuiz() {
+      quizForm.innerHTML = "";
+      summaryDiv.innerHTML = "";
+      submitBtn.disabled = false;
+
+      renderQuiz();
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    // Load quiz on page load
+    window.onload = () => {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>
