@@ -14,6 +14,12 @@ app.use(bodyParser.json());
 const publicpath = path.join(__dirname, 'public');
 app.use(express.static(publicpath));
 
+//default
+app.get('/', (req, res) => {
+    res.redirect('/Home');
+});
+
+
 // Home
 app.get('/Home', (req, res) => {
     res.sendFile(path.join(publicpath, 'index.html'));
